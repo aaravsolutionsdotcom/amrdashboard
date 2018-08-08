@@ -1,0 +1,12 @@
+img.two {
+    height: 25%;
+    width: 50%;
+}
+
+.sidebar-wrapper {
+    background-color: #2c2c2c
+}
+
+.nav li.active > a {
+    background-color: crimson;
+}

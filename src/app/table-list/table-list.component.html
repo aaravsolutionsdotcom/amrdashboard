@@ -1,0 +1,39 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Recent Data</h4>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <!-->canvas baseChart id="barChartSimpleGradientsNumbers"
+                        [datasets]="lineChartGradientsNumbersData"
+                        [labels]="lineChartGradientsNumbersLabels"
+                        [colors]="lineChartGradientsNumbersColors"
+                        [options]="lineChartGradientsNumbersOptions"
+                        [chartType]="lineChartGradientsNumbersType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas-->
+
+                <ngx-charts-bar-vertical [view]="barview"
+                                         [scheme]="barcolorScheme"
+                                         [results]="barsingle"
+                                         [gradient]="bargradient"
+                                         [xAxis]="barshowXAxis"
+                                         [yAxis]="barshowYAxis"
+                                         [legend]="barshowLegend"
+                                         [showXAxisLabel]="barshowXAxisLabel"
+                                         [showYAxisLabel]="barshowYAxisLabel"
+                                         [xAxisLabel]="barxAxisLabel"
+                                         [yAxisLabel]="baryAxisLabel"
+                                         (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

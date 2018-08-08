@@ -1,0 +1,58 @@
+    <!-- Modal content-->
+    
+
+    <div class="modal-header">
+        <h4 class="modal-title">Download Device Data CSV</h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="downloadcsv">
+            <div class="row">
+                <div class="column" style="padding-left: 11pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                    <br />
+                    DEVICEID
+                </div>
+                <div class="column" style="text-transform: uppercase;font-weight: 500;letter-spacing: 1px;">
+                </div>
+            </div>
+            <input type="text" id="devicename" formControlName="devicename" class="form-control" disabled>
+        </form>
+        <br />
+        <div class="row">
+            <div class="column" style="padding-left: 11pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                <br />
+                FROMDATE
+            </div>
+            <div class="column" style="padding-left: 182pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                <br />
+                TODATE
+            </div>
+        </div>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" [formControl]="fromdate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field style="padding-left: 80pt;">
+            <input matInput [matDatepicker]="pickere"
+                   [formControl]="serializedDate">
+            <mat-datepicker-toggle matSuffix [for]="pickere"></mat-datepicker-toggle>
+            <mat-datepicker #pickere></mat-datepicker>
+        </mat-form-field>
+        <div *ngIf="error.isError" class="alert alert-danger">
+            {{ error.errorMessage }}
+        </div>
+        <br />
+        <br />
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="column">
+                <button type="button" (click)="download()" [disabled]="error.isError" class="btn btn-success btn-lg">Download</button>
+            </div>
+            <div class="column">
+                <button (click)="closeModal()" type="button" class="btn btn-danger btn-lg">Close</button>
+            </div>
+        </div>
+   </div>
+
+

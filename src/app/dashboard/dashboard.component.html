@@ -1,0 +1,127 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h6 class="title">Devices</h6>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchTextId" name="searchText" [(ngModel)]="searchText">
+                            <br />
+                            <br />
+                            <table class="table">
+                                <tbody>
+                                    <tr *ngFor="let device of (uniqueArray | searchByName: searchText) | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+                                        <button (click)="showcardinfofun(device)" style="width:100%" class="alert alert-primary btn btn-primary">
+                                            <div class="row">
+                                                <div class="column" style="width: 23.33%;">
+                                                    <i style="color:white" class="material-icons">
+                                                        settings_remote
+                                                    </i>
+                                                </div>
+                                                <div class="column" style="width: 53%;">
+                                                    <span style="color:white">
+                                                        ID : {{device.deviceInfo.deviceName}}
+                                                    </span>
+                                                    <br />
+                                                    <span style="color:darkgray">
+                                                        Serial # : {{device.deviceInfo.serialNum}}
+                                                    </span>
+                                                </div>
+                                                <div class="column" style="width: 23.33%;">
+                                                    <i *ngIf="device.deviceInfo.status === 'inactive'" style="color:white" class="material-icons">
+                                                        wb_incandescent
+                                                    </i>
+                                                    <i *ngIf="device.deviceInfo.status === 'active'" style="color:yellow" class="material-icons">
+                                                        wb_incandescent
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <pagination-controls directionLinks="true" (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)"
+                     size="medium"
+                     color="#fff"
+                     loadingText="Loading Device Info.."
+                     type="ball-scale-multiple">
+        </ngx-spinner>
+        <div class="col-md-6">
+            <div class="card" [style.background-color]="getbackgroungStyle()" style="font-size: 10px;">
+                <div class="card-header text-center">
+                    <h6 *ngIf="showinfocard === true" class="title">Deviceinfo</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div *ngIf="showinfocard === true" class="column" style="padding-left: 11pt; width: 30%;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                            ID
+                            <br />
+                            Serial Number
+                            <br />
+                            Status
+                            <br />
+                            Location
+                        </div>
+                        <div *ngIf="showinfocard === true" class="column" style="padding-left: 15pt; width: 50%;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                            {{deviceinfoid}}
+                            <br />
+                            {{deviceinfosn}}
+                            <br />
+                            {{deviceinfostatus}}
+                        </div>
+                        <div *ngIf="showinfocard === true"data-toggle="tooltip" title="Click to download CSV" class="column" style="padding-left: 20pt;width: 20%;">
+                            <button (click)="openLoginDialog()" class="button" style="background:#fff" data-toggle="modal" data-target="#exampleModalCenter">
+                                <i class="material-icons" style="transform: rotate(90deg);">
+                                    keyboard_tab
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                    <br />
+                    <div style="height: 100px;" id="map" class="map"></div>
+                    <br />
+                    <div *ngIf="showinfocard === true" class="row">
+                        <div class="column" style="padding-left: 11pt; width: 30%;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                            Last Reading
+                            <br />
+                            Last Read Time
+                        </div>
+                        <div class="column" style="padding-left: 15pt; width: 50%;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                            {{deviceinfolastread}}
+                            <br />
+                            {{deviceinforeadt}}
+                        </div>
+                        <div class="column" style="padding-left: 20pt;width: 20%;">
+                        </div>
+                    </div>
+                    <div *ngIf="showinfocard === true" class="row" style="padding-left: 2pt;width=100%">
+                        <ngx-charts-bar-vertical [view]="barview"
+                                                 [scheme]="barcolorScheme"
+                                                 [results]="deviceinfographdata"
+                                                 [gradient]="bargradient"
+                                                 [xAxis]="barshowXAxis"
+                                                 [yAxis]="barshowYAxis"
+                                                 [legend]="barshowLegend"
+                                                 [showXAxisLabel]="barshowXAxisLabel"
+                                                 [showYAxisLabel]="barshowYAxisLabel"
+                                                 [xAxisLabel]="barxAxisLabel"
+                                                 [yAxisLabel]="baryAxisLabel"
+                                                 (select)="onSelect($event)">
+                        </ngx-charts-bar-vertical>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

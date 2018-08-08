@@ -1,0 +1,73 @@
+a {
+    cursor: pointer;
+}
+
+.card-footer {
+    text-align: center;
+}
+
+.pagination {
+    display: -webkit-inline-box;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 90%;
+}
+
+.input-group-append{
+    top:-500px
+}
+
+.alert.alert-primary {
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.btn {
+   
+    font-weight: 700;
+    letter-spacing: 1px;
+    
+}
+
+
+    .btn:focus, .btn:active:focus, .btn.active:focus {
+        outline: 0 none;
+    }
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #808080;
+}
+
+.btn-primary:active, .btn-primary.active {
+        background: #ff0000;
+        box-shadow: none;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:active:hover, .btn-primary.active:hover, .show > .btn-primary.dropdown-toggle, .show > .btn-primary.dropdown-toggle:focus, .show > .btn-primary.dropdown-toggle:hover {
+        background-color: crimson;
+        color: #FFFFFF;
+        box-shadow: none;
+}
+
+pagination-controls /deep/ .ngx-pagination .current {
+    background: #2c2c2c;
+    border-radius: 3px 10px
+}
+
+pagination-controls /deep/ .ngx-pagination .disabled {
+    background: #e3e3e3;
+    border-radius: 3px 10px
+}
+
+pagination-controls /deep/ .ngx-pagination a, .ngx-pagination button {
+    background: #fa1f32;
+    cursor: pointer;
+    border-radius: 3px 10px
+}

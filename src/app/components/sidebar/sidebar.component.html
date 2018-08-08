@@ -1,0 +1,40 @@
+<div  class="logo text-center" style="background-color:#2c2c2c">
+    <a href="http://www.aaravsolutions.com/" class="simple-text">
+            <!--img style="background: rgba(0,0,0, 0.8)" src="./assets/img/logo.png" /-->
+            <img [@rotatedState]='state' style="height:60px" src="./assets/img/logo.png" />
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav" >
+        <!-->li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+        <a [routerLink]="[menuItem.path]">
+            <i class="now-ui-icons {{menuItem.icon}}"></i>
+            <p>{{menuItem.title}}</p>
+        </a>
+    </li-->
+        <li routerLinkActive="active" class="nav-item" style="color:red">
+            <a [routerLink]="'/table-list'">
+                <i class="now-ui-icons business_chart-bar-32"></i>
+                <p>Recent Data</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a [routerLink]="'/dashboard'">
+                <i class="design_app now-ui-icons "></i>
+                <p>Devices</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a [routerLink]="'/icons'">
+                <i class="now-ui-icons loader_gear"></i>
+                <p>Settings</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a [routerLink]="'/user-profile'">
+                <i class="now-ui-icons users_single-02"></i>
+                <p>User Profile</p>
+            </a>
+        </li>
+    </ul>
+</div>

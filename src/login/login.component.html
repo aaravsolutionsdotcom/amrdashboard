@@ -1,0 +1,59 @@
+<div class="page-wrap">
+    <app-header></app-header>
+    <main class="content" >
+        <div class="signin-content" style="background: url('https://s3.amazonaws.com/creativetim_bucket/products/12/bg6.jpg?1431435540')no-repeat;background-size: cover; ">
+            <div class="container h-100">
+                <div class="row justify-content-end h-100">
+                    <mat-card style="background-color:white">
+                        <mat-card-header>
+                            <mat-card-title *ngIf="this.Login === true" [ngStyle]="{'font-size':'24px'}">Login</mat-card-title>
+                            <mat-card-title *ngIf="this.Forgetpass === true" [ngStyle]="{'font-size':'15px'}">Enter Email to Recover</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <form [formGroup]="Loginsignup">
+                                <mat-form-field appearance="outline" class="full-width-input">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput placeholder="xyz@aaravsolutions.com" formControlName="username" id="username" required>
+                                    <mat-error *ngIf="usernameget.touched && usernameget.invalid">
+                                        <mat-error *ngIf="usernameget.errors.required"> {{getusernameErrorMessage()}}</mat-error>
+                                        <mat-error *ngIf="usernameget.errors.email"> {{getusernameErrorMessage()}}</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field *ngIf="this.Forgetpass === false" appearance="outline" class="full-width-input">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput type="password" [type]="hide ? 'password' : 'text'" formControlName="password" id="password" required>
+                                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                    <mat-error *ngIf="passwordget.touched && passwordget.invalid">
+                                        <mat-error *ngIf="passwordget.errors.required"> {{getpasswordErrorMessage()}}</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                                <p class="font-small grey-text d-flex justify-content-end" [ngStyle]="{'font-size':'13px'}" *ngIf="this.Forgetpass === false">
+                                    Forgot
+                                    <a href="#" (click)="Forgetpasswordfun()">&nbsp; Password?</a>
+                                </p>
+                                <mat-form-field appearance="outline" class="full-width-input">
+                                    <mat-label>ApiKey</mat-label>
+                                    <input matInput formControlName="apiKey" id="apiKey" required>
+                                    <mat-error *ngIf="apiKeyget.touched && apiKeyget.invalid">
+                                        <mat-error *ngIf="apiKeyget.errors.required"> {{getapiKeygetdErrorMessage()}}</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                                <button *ngIf="this.Login1 === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid" (click)="login()">Login</button>
+                                <button *ngIf="this.Forgetpass === true" mat-raised-button color="primary">Next</button>
+                            </form>
+                        </mat-card-content>
+                        <div class="modal-footer">
+                            <div class="options text-center text-md-right mt-1" style="top:15px">
+                                <br />
+                                <p class="font-small grey-text d-flex justify-content-end" [ngStyle]="{'font-size':'13px'}">
+                                    Not a member?
+                                    <a style="color:#007bff" href="#" (click)="CreateAcc()"> &nbsp;create account</a>
+                                </p>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
