@@ -46,383 +46,48 @@ export class DashboardComponent implements OnInit {
     deviceinfolastread;
     deviceinforeadt;
     deviceinfostatus: any;
-    myLatlng;
-    mapOptions;
-    map;
-    marker;
     someExpression = null;
     showStyle= false;
-    //Bar Chart
-    barview: any[] = [500, 100];
-    // options
-    barshowXAxis = false;
-    barshowYAxis = false;
+    /*Bar Chart options*/
+    barview: any[] = [500, 100];//this variables talks about width,height of bar graph
+    barshowXAxis = false; //show X axis or not
+    barshowYAxis = false; //show Y axis or not
     bargradient = false;
     barshowLegend = false;
     colorset: false
-    devices = [];
-    uniqueArray: any;
     //barshowXAxisLabel = true;
     // barxAxisLabel = 'Country';
     //barshowYAxisLabel = true;
 
     barcolorScheme = {
-        //domain: ['rgb(0, 157, 160)', 'rgb(255, 88, 107)', 'rgb(255, 141, 96)']
         domain: ['#ff6464', '#3e3939', '#00818a', '#00587a']
     };
+    /*END*/
+    /*map related variables*/
+    myLatlng;
+    mapOptions;
+    map;
+    marker;
+    /*END*/
+    devices = [];
+    uniqueArray: any;
+    
 
     constructor(private http: HttpClient, private httpreq: HttpRequestService,
         private spinnerService: Ng4LoadingSpinnerService,
         private spinner: NgxSpinnerService,
         private dialog: MatDialog) {
     }
-    ngOnInit(){
+    /*Component Execution will Start from ngOninit*/
+    ngOnInit() {
+        /*do the get request to get the devices array from server*/
         this.httpreq.getdevices().subscribe(devicesre => {
-            console.log('devicesreturned', devicesre)
             this.devices = devicesre;
             this.uniqueArray = this.removeduplicates(this.devices);
-            console.log('remove duplicates', this.uniqueArray)
         });
     }
 
-    barsingle = [
-        {
-            "name": "meter1",
-            "value": 200
-        },
-        {
-            "name": "meter2",
-            "value": 100
-        },
-        {
-            "name": "meter3",
-            "value": 50
-        },
-        {
-            "name": "meter4",
-            "value": 250
-        },
-        {
-            "name": "meter5",
-            "value": 150
-        }
-    ];
-
-    //new functionality
-    games = [
-        {
-            "id": "1",
-            "name": "DOTA 2",
-            "genre": "Strategy"
-        },
-        {
-            "id": "2",
-            "name": "AOE 3",
-            "genre": "Strategy"
-        },
-        {
-            "id": "3",
-            "name": "GTA 5",
-            "genre": "RPG"
-        },
-        {
-            "id": "4",
-            "name": "Far Cry 3",
-            "genre": "Action"
-        },
-        {
-            "id": "5",
-            "name": "GTA San Andreas",
-            "genre": "RPG"
-        },
-        {
-            "id": "6",
-            "name": "Hitman",
-            "genre": "Action"
-        },
-        {
-            "id": "7",
-            "name": "NFS MW",
-            "genre": "Sport"
-        }, {
-            "id": "8",
-            "name": "Fifa 16",
-            "genre": "Sport"
-        }, {
-            "id": "9",
-            "name": "NFS Sen 2",
-            "genre": "Sport"
-        }, {
-            "id": "10",
-            "name": "Witcher Assassins on King",
-            "genre": "Adventure"
-        }
-    ];
-
-    /*devices = [
-        {   
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354354",
-                "lastUpdate": "2018-01-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang":"40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545522",
-                "currentUnits": "54354380",
-                "lastUpdate": "2018-11-12"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545522",
-                "currentUnits": "54354380",
-                "lastUpdate": "2018-11-13"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545522",
-                "currentUnits": "54354380",
-                "lastUpdate": "2018-11-17"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545522",
-                "currentUnits": "54354380",
-                "lastUpdate": "2016-01-12"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354380",
-                "lastUpdate": "2018-12-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-
-            "utilityData": {
-                "lastunits": "354540",
-                "currentUnits": "54354354",
-                "lastUpdate": "2019-01-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354394",
-                "lastUpdate": "2018-02-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354399",
-                "lastUpdate": "2018-03-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354349",
-                "lastUpdate": "2018-07-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH789",
-                "deviceName": "Gm2434",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "40.748817, -73.985428"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354354",
-                "lastUpdate": "2018-01-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH792",
-                "deviceName": "Gm2435",
-                "deviceMake": "Honeywell",
-                "status": 'active',
-                "Latlang": "25.774252, -80.190262"
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354354",
-                "lastUpdate": "2018-01-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH798",
-                "deviceName": "Gm243556",
-                "deviceMake": "Honeywell",
-                "status": 'inactive',
-                "Latlang": "18.466465, -66.118292"
-
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354354",
-                "lastUpdate": "2018-01-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH898",
-                "deviceName": "Gm2435596",
-                "deviceMake": "Honeywell",
-                "status": 'active',
-                "Latlang": "32.321384, -64.757370"
-
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354154",
-                "lastUpdate": "2015-12-17"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGH898",
-                "deviceName": "Gm2435596",
-                "deviceMake": "Honeywell",
-                "status": 'active',
-                "Latlang": "32.321384, -64.757370"
-
-            },
-            "__v": 0
-        },
-        {
-            "_id": "5b56fa61e875b560f3448dcd",
-
-            "utilityData": {
-                "lastunits": "3545466",
-                "currentUnits": "54354354",
-                "lastUpdate": "2018-01-01"
-            },
-            "deviceInfo": {
-                "serialNum": "AVFHY5679VGKH898",
-                "deviceName": "Gm24355879",
-                "deviceMake": "Honeywell",
-                "status": 'active',
-                "Latlang": "25.774252, -80.190262"
-
-            },
-            "__v": 0
-        },
-
-    ];*/
-
-    
-
-    //sorting
-    key: string = 'deviceName';
-    reverse: boolean = false;
-    sort(key) {
-        this.key = key;
-        this.reverse = !this.reverse;
-    }
-    p: number = 1;
+   p: number = 1;
 
     removeduplicates = function (origArr) {
         var newArr = [],
