@@ -59,7 +59,9 @@ export class DashboardComponent implements OnInit {
     barshowYAxis = false;
     bargradient = false;
     barshowLegend = false;
-    colorset:false
+    colorset: false
+    devices = [];
+    uniqueArray: any;
     //barshowXAxisLabel = true;
     // barxAxisLabel = 'Country';
     //barshowYAxisLabel = true;
@@ -75,8 +77,11 @@ export class DashboardComponent implements OnInit {
         private dialog: MatDialog) {
     }
     ngOnInit(){
-        this.httpreq.getdevices().subscribe(devices => {
-            console.log(devices)
+        this.httpreq.getdevices().subscribe(devicesre => {
+            console.log('devicesreturned', devicesre)
+            this.devices = devicesre;
+            this.uniqueArray = this.removeduplicates(this.devices);
+            console.log('remove duplicates', this.uniqueArray)
         });
     }
 
@@ -154,7 +159,7 @@ export class DashboardComponent implements OnInit {
         }
     ];
 
-    devices = [
+    /*devices = [
         {   
             "_id": "5b56fa61e875b560f3448dcd",
             "utilityData": {
@@ -406,7 +411,7 @@ export class DashboardComponent implements OnInit {
             "__v": 0
         },
 
-    ];
+    ];*/
 
     
 
@@ -440,8 +445,7 @@ export class DashboardComponent implements OnInit {
         }
         return newArr;
     }
-    uniqueArray: any = this.removeduplicates(this.devices);
-    
+        
     getcurentunitsdate = function (devicename) {
         var newArr = [],
             origLen = this.devices.length,
@@ -480,8 +484,9 @@ export class DashboardComponent implements OnInit {
         this.someExpression = ''
         this.deviceinforeadt = device.utilityData.lastUpdate;
         var latlog: string = device.deviceInfo.Latlang;
-        var myLatlng = new google.maps.LatLng(Number(latlog.split(",")[0]), Number(latlog.split(",")[1]));
-       
+        if (latlog) {
+            var myLatlng = new google.maps.LatLng(Number(latlog.split(",")[0]), Number(latlog.split(",")[1]));
+        }
         var mapOptions = {
             zoom: 13,
             center: myLatlng,
