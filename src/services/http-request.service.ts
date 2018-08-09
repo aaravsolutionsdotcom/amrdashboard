@@ -14,13 +14,12 @@ export class HttpRequestService {
     constructor(private http: HttpClient) { }
     login = 'http://45.55.129.192:5000/api/signin';
     checksignin(login: any): Observable<HttpResponse<any>> {
+
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'access-control-allow-origin': 'http://localhost:4200',
-                'Access-Control-Allow-Headers': 'Origin, Content-Type'
             }),
-            withCredentials: true,
+            withCredentials: true,            crossDomain: true,
             observe: 'response' as 'response'
         };  
         return this.http.post<any>(this.login, login, httpOptions)
@@ -32,13 +31,10 @@ export class HttpRequestService {
 
    devices = ' http://45.55.129.192:5000/api/record';
     getdevices(): Observable<Devices[]> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            })
-        };
-        return this.http.get<Devices[]>(this.devices, httpOptions)
-            .pipe(
+        
+        return this.http.get<Devices[]>(this.devices, {
+            withCredentials: true,
+        }).pipe(
 
             );
     }
