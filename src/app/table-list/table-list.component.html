@@ -18,9 +18,9 @@
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)"></canvas-->
 
-                <ngx-charts-bar-vertical [view]="barview"
+                <ngx-charts-bar-vertical *ngIf="bardummy" [view]="barview"
                                          [scheme]="barcolorScheme"
-                                         [results]="barsingle"
+                                         [results]="bardummy"
                                          [gradient]="bargradient"
                                          [xAxis]="barshowXAxis"
                                          [yAxis]="barshowYAxis"

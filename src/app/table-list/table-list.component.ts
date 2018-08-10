@@ -12,64 +12,11 @@ import { Router } from '@angular/router';
 })
 export class TableListComponent implements OnInit {
 
-    public lineChartGradientsNumbersData: Array<any>;
-    public lineChartGradientsNumbersLabels: Array<any>;
-    public lineChartGradientsNumbersColors: Array<any>;
-    public lineChartGradientsNumbersOptions: Array<any>;
-    public lineChartGradientsNumbersType;
-    public gradientFill;
-    public canvas: any;
-    public ctx;
     devices = [];
-    constructor(private httpreq: HttpRequestService, private router: Router) {
-        this.httpreq.getdevices().subscribe(devicesre => {
-            this.devices = devicesre;
-        },
-        err => {
-                this.router.navigateByUrl('');
-        });
-    }
-
-    ngOnInit() {
-        
-        this.canvas = document.getElementById("barChartSimpleGradientsNumbers");
-        this.ctx = this.canvas.getContext("2d");
-        this.gradientFill = this.ctx.createLinearGradient(0, 200, 0, 50);
-        this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-        this.gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
-
-        this.lineChartGradientsNumbersType = 'bar';
-      this.lineChartGradientsNumbersData = [
-        {
-            label: "Active Countries",
-            pointBorderWidth: 2,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 1,
-            pointRadius: 4,
-            fill: true,
-            borderWidth: 1,
-            data: [80, 99, 86, 96, 123, 85, 100, 75, 88, 90, 123, 155]
-        }
-    ];;
-
-    this.lineChartGradientsNumbersLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    this.lineChartGradientsNumbersColors = [
-        {
-            backgroundColor: this.gradientFill,
-            borderColor: "#2CA8FF",
-            pointBorderColor: "#FFF",
-            pointBackgroundColor: "#2CA8FF",
-        }
-    ];
-  }
-    public chartHovered(e: any): void {
-        console.log(e);
-    }
-    public chartClicked(e: any): void {
-        console.log(e);
-    }
-
+    deviceslatest = [];
+    actualbardata = [];
+    bardummy = [];
+    bar = 0;
     //Bar Chart
     barview: any[] = [550, 400];
     // options
@@ -78,79 +25,51 @@ export class TableListComponent implements OnInit {
     bargradient = false;
     barshowLegend = false;
     //barshowXAxisLabel = true;
-   // barxAxisLabel = 'Country';
+    // barxAxisLabel = 'Country';
     barshowYAxisLabel = true;
     baryAxisLabel = 'kw';
 
     barcolorScheme = {
         //domain: ['rgb(0, 157, 160)', 'rgb(255, 88, 107)', 'rgb(255, 141, 96)']
-        domain: ['#ff6464', '#3e3939', '#00818a','#00587a']
+        domain: ['#ff6464', '#3e3939', '#00818a', '#00587a']
     };
+   
+    constructor(private httpreq: HttpRequestService, private router: Router) {
+       
+    }
 
-    barsingle = [
-        {
-            "name": "meter1",
-            "value": 200
-        },
-        {
-            "name": "meter2",
-            "value": 100
-        },
-        {
-            "name": "meter3",
-            "value": 50
-        },
-        {
-            "name": "meter4",
-            "value": 250
-        },
-        {
-            "name": "meter5",
-            "value": 150
-        }
-    ];
+    ngOnInit() {
+        this.httpreq.getdevices().subscribe(devicesre => {
+            
+            this.devices = devicesre;
+            //sorting the devices in decesnding order
+            this.devices.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());
 
-    barmulti = [
-        {
-            "name": "Germany",
-            "series": [
-                {
-                    "name": "2010",
-                    "value": 7300000
-                },
-                {
-                    "name": "2011",
-                    "value": 8940000
+            var meterid = 0;
+            for (let i = 0; i < this.devices.length; i++) {
+                var k = 0;
+                for (let j = 0; j < this.deviceslatest.length; j++) {
+                    if (this.devices[i].deviceInfo.deviceName === this.deviceslatest[j].deviceName) {
+                        k++;
+                    }
                 }
-            ]
-        },
+                if (k === 0) {
+                    meterid++;
+                    this.deviceslatest.push({
+                        "deviceName": this.devices[i].deviceInfo.deviceName,
+                    });
 
-        {
-            "name": "USA",
-            "series": [
-                {
-                    "name": "2010",
-                    "value": 7870000
-                },
-                {
-                    "name": "2011",
-                    "value": 8270000
+                    this.actualbardata.push({
+                        "name": "meter" + meterid,
+                        "value": Number(this.devices[i].utilityData.lastunits)
+                    })
                 }
-            ]
+            }
+            this.bardummy = this.actualbardata;
         },
+        err => {
+                this.router.navigateByUrl('');
+        });
 
-        {
-            "name": "France",
-            "series": [
-                {
-                    "name": "2010",
-                    "value": 5000002
-                },
-                {
-                    "name": "2011",
-                    "value": 5800000
-                }
-            ]
-        }
-    ];
+    }
 }

@@ -151,6 +151,8 @@ export class DisplayPasswordMessage {
 
     closeModal(): void {
         this.dialogRef.close();
-        this.router.navigateByUrl('');
+        if (this.header === 'Sucess') {
+            this.router.navigateByUrl('');
+        }
     }
 }
