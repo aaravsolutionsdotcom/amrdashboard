@@ -24,7 +24,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material'
+import { DisplayLoginErrorDialog } from '../login/login.component'
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -35,15 +37,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RouterModule,
     AppRoutingModule,
     NgbModule.forRoot(),
-      NgxChartsModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
+    NgxChartsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatDialogModule
+      
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+      AdminLayoutComponent,
+      DisplayLoginErrorDialog
   ],
-  providers: [],
+    providers: [],
+    entryComponents: [DisplayLoginErrorDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

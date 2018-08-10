@@ -76,7 +76,8 @@ export class DashboardComponent implements OnInit {
     constructor(private http: HttpClient, private httpreq: HttpRequestService,
         private spinnerService: Ng4LoadingSpinnerService,
         private spinner: NgxSpinnerService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog,
+        private router: Router) {
     }
     /*Component Execution will Start from ngOninit*/
     ngOnInit() {
@@ -84,6 +85,9 @@ export class DashboardComponent implements OnInit {
         this.httpreq.getdevices().subscribe(devicesre => {
             this.devices = devicesre;
             this.uniqueArray = this.removeduplicates(this.devices);
+        },
+        err => {
+                this.router.navigateByUrl('');
         });
     }
 
@@ -268,3 +272,4 @@ export class DashboardComponent implements OnInit {
         );
     }
 }
+

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import * as shape from 'd3-shape';
 import * as d3 from 'd3';
+import { HttpRequestService } from '../../../src/services/http-request.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-list',
@@ -18,9 +20,18 @@ export class TableListComponent implements OnInit {
     public gradientFill;
     public canvas: any;
     public ctx;
-  constructor() { }
+    devices = [];
+    constructor(private httpreq: HttpRequestService, private router: Router) {
+        this.httpreq.getdevices().subscribe(devicesre => {
+            this.devices = devicesre;
+        },
+        err => {
+                this.router.navigateByUrl('');
+        });
+    }
 
     ngOnInit() {
+        
         this.canvas = document.getElementById("barChartSimpleGradientsNumbers");
         this.ctx = this.canvas.getContext("2d");
         this.gradientFill = this.ctx.createLinearGradient(0, 200, 0, 50);

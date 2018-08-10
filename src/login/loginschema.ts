@@ -3,4 +3,5 @@ export interface Login {
     password: string;
     apiKey: string;
     message: string;
+    error: string;
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http, Headers } from '@angular/http';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatNativeDateModule, MatDatepickerModule, } from '@angular/material'
 import { map } from 'rxjs/internal/operators/map';
 import { Login } from './loginschema';
 import { HttpRequestService } from '../../src/services/http-request.service';
@@ -14,7 +14,7 @@ import { HttpRequestService } from '../../src/services/http-request.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private http: HttpClient, private httpreq: HttpRequestService, private router: Router) { }
+    constructor(private http: HttpClient, private httpreq: HttpRequestService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -76,13 +76,43 @@ export class LoginComponent implements OnInit {
         const login = this.Loginsignup.value;
         let body = JSON.stringify(login);
         this.httpreq.checksignin(body).subscribe((res: HttpResponse<Login>) => {
-            res.body.message
+            console.log('resultis',res)
+            //res.body.message
             if (res.body.message && res.body.message === 'SignIn success') {
                 console.log('Valid login')
                 this.router.navigateByUrl('/table-list');
             }
+        },
+        (err: HttpResponse<Login>) => {
+            
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.autoFocus = true;
+            dialogConfig.width = '275px';
+            dialogConfig.height = '210px';
+            dialogConfig.disableClose = true;
+            dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "To date can't before or equal to From date" }
+            const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
+            dialogRef.afterClosed().subscribe(
+                val => console.log("Dialog output:", val)
+            );
         });
-        
     }
     
+}
+
+@Component({
+    templateUrl: './loginerror.html',
+})
+export class DisplayLoginErrorDialog {
+
+    constructor(
+        public dialogRef: MatDialogRef<DisplayLoginErrorDialog>)
+    {
+
+       
+    }
+
+    closeModal(): void {
+        this.dialogRef.close();
+    }
 }

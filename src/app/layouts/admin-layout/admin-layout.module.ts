@@ -38,8 +38,9 @@ import { MenuItem } from 'primeng/api';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 import { DisplayErrorDialog } from '../../dashboard/downloadcsv/downloadcsv.component'
 import { SearchByNamePipe } from '../../dashboard/search-by-devicename.pipe'
-import { Updatepassword } from '../../user-profile/user-profile.component'
-import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material'
+import { Updatepassword, DisplayPasswordMessage } from '../../user-profile/user-profile.component'
+import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material'
+
 
 @NgModule({
     imports: [
@@ -81,14 +82,15 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angul
         DownloadcsvComponent,
         DisplayErrorDialog,
         SearchByNamePipe,
-        Updatepassword
+        Updatepassword,
+        DisplayPasswordMessage
 
     ],
   providers: [
       PaginationService,
       HttpRequestService
     ],
-    entryComponents: [DownloadcsvComponent, DisplayErrorDialog, Updatepassword],
+    entryComponents: [DownloadcsvComponent, DisplayErrorDialog, Updatepassword, DisplayPasswordMessage],
 })
 
 export class AdminLayoutModule {}
