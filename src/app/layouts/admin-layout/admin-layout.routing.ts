@@ -10,11 +10,8 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { LoginComponent } from '../../../login/login.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
+    { path: 'devices',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications', component: NotificationsComponent },
+    { path: 'recentdata',     component: TableListComponent },
+    { path: 'settings',          component: IconsComponent },
 ];

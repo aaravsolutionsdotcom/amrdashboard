@@ -3,6 +3,11 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import Chart from 'chart.js';
+import { HttpRequestService } from '../../../services/http-request.service'
+import { HttpClient } from '@angular/common/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +23,7 @@ export class NavbarComponent implements OnInit {
 
     public isCollapsed = true;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location, private element: ElementRef, private router: Router, private httpreq: HttpRequestService,) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -151,5 +156,15 @@ export class NavbarComponent implements OnInit {
           }
       }
       return 'AMR Dashboard';
+    }
+
+    logout() {
+        this.httpreq.logoutuser().subscribe(logout => {
+            console.log(logout)
+            this.router.navigateByUrl('');
+        },
+        err => {
+                this.router.navigateByUrl('');
+        });
     }
 }

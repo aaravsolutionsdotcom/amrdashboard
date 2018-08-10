@@ -23,7 +23,7 @@ const routes: Routes = [
         component: LoginComponent
   },
   {
-    path: 'table-list',
+      path: 'recentdata',
     redirectTo: 'login',
     pathMatch: 'full',
   }, {
@@ -36,7 +36,7 @@ const routes: Routes = [
   }]},
   {
     path: '**',
-      redirectTo: 'table-list'
+      redirectTo: 'recentdata'
   }
 ];
 

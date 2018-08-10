@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
             //res.body.message
             if (res.body.message && res.body.message === 'SignIn success') {
                 console.log('Valid login')
-                this.router.navigateByUrl('/table-list');
+                this.router.navigateByUrl('/recentdata');
             }
         },
         (err: HttpResponse<Login>) => {

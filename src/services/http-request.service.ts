@@ -69,4 +69,12 @@ export class HttpRequestService {
             );
     }
 
+    logout = 'http://45.55.129.192:5000/api/logout';
+    logoutuser(): Observable<Userprofile[]> {
+        return this.http.get<Userprofile[]>(this.logout, {
+            withCredentials: true,
+        }).pipe(
+
+        );
+    }
 }
