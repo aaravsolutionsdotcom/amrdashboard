@@ -11,6 +11,7 @@ Install Python 2.7 and export the path
 6) npm install typescript@~2.7.2
 7) npm install node-sass
 Note: Delete binding.node from C:\Users\Administrator\AppData\Roaming\npm-cache\node-sass\4.x.x, if error prompts at binding.node
+8) ng serve
 
 Installation Steps for linux:
 
@@ -27,12 +28,14 @@ Install Steps:
 3) sudo npm install --save-dev @angular-devkit/build-angular
 4) npm install -g @angular/cli
 5) sudo npm install --no-optional
+6) sudo npm install angular-epic-spinners
+7) 
 Note: Enable hostheader
 	node_modules/webpack-dev-server/lib/Server.js
 	522   const hostHeader = headers.host;
 	523   if (!hostHeader) return true;
 
-6) nohup ng serve --host 172.31.16.38 --disableHostCheck true &
+8) nohup ng serve --host 172.31.16.38 --disableHostCheck true &
 
 
 

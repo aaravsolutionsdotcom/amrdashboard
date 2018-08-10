@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit {
     /*END*/
     devices = [];
     uniqueArray: any;
-    
+    display = false;
 
     constructor(private http: HttpClient, private httpreq: HttpRequestService,
         private spinnerService: Ng4LoadingSpinnerService,
@@ -81,12 +81,15 @@ export class DashboardComponent implements OnInit {
     }
     /*Component Execution will Start from ngOninit*/
     ngOnInit() {
+        this.display = true;
         /*do the get request to get the devices array from server*/
         this.httpreq.getdevices().subscribe(devicesre => {
             this.devices = devicesre;
             this.uniqueArray = this.removeduplicates(this.devices);
+            this.display = false;
         },
-        err => {
+            err => {
+                this.display = false;
                 this.router.navigateByUrl('');
         });
     }

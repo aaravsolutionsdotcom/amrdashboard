@@ -3,7 +3,7 @@ import * as Chartist from 'chartist';
 import * as shape from 'd3-shape';
 import * as d3 from 'd3';
 import { HttpRequestService } from '../../../src/services/http-request.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationCancel, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-table-list',
@@ -17,6 +17,7 @@ export class TableListComponent implements OnInit {
     actualbardata = [];
     bardummy = [];
     bar = 0;
+    display = false;
     //Bar Chart
     barview: any[] = [550, 400];
     // options
@@ -39,6 +40,7 @@ export class TableListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.display = true;
         this.httpreq.getdevices().subscribe(devicesre => {
             
             this.devices = devicesre;
@@ -66,6 +68,7 @@ export class TableListComponent implements OnInit {
                 }
             }
             this.bardummy = this.actualbardata;
+            this.display = false;
         },
         err => {
                 this.router.navigateByUrl('');

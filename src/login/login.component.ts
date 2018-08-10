@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit, AfterViewInit  {
         this.router.events
             .subscribe((event) => {
                 if (event instanceof NavigationStart) {
-                    
                 }
                 else if (
                     event instanceof NavigationEnd ||

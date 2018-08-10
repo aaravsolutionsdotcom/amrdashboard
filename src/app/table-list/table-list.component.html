@@ -9,14 +9,25 @@
         </div>
         <div class="card-body">
             <div class="chart-area">
+                <div *ngIf="display" style="margin-top:80px;">
+                    <div style="width:300px; margin:0 auto;">
+                        <app-radar-spinner [animationDuration]="1000"
+                                           [size]="100"
+                                           [color]="'#ff1d5e'">
+                        </app-radar-spinner>
+                    </div>
+                    <div style="width:250px; margin:0 auto;">
+                        <span>Loading..</span>
+                    </div>
+                </div>
                 <!-->canvas baseChart id="barChartSimpleGradientsNumbers"
-                        [datasets]="lineChartGradientsNumbersData"
-                        [labels]="lineChartGradientsNumbersLabels"
-                        [colors]="lineChartGradientsNumbersColors"
-                        [options]="lineChartGradientsNumbersOptions"
-                        [chartType]="lineChartGradientsNumbersType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas-->
+            [datasets]="lineChartGradientsNumbersData"
+            [labels]="lineChartGradientsNumbersLabels"
+            [colors]="lineChartGradientsNumbersColors"
+            [options]="lineChartGradientsNumbersOptions"
+            [chartType]="lineChartGradientsNumbersType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas-->
 
                 <ngx-charts-bar-vertical *ngIf="bardummy" [view]="barview"
                                          [scheme]="barcolorScheme"
