@@ -1,20 +1,26 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http, Headers } from '@angular/http';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationCancel, NavigationEnd } from '@angular/router';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatNativeDateModule, MatDatepickerModule, } from '@angular/material'
 import { map } from 'rxjs/internal/operators/map';
 import { Login } from './loginschema';
 import { HttpRequestService } from '../../src/services/http-request.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit  {
 
-    constructor(private http: HttpClient, private httpreq: HttpRequestService, private router: Router, private dialog: MatDialog) { }
+    constructor(private http: HttpClient, private httpreq: HttpRequestService, private router: Router,
+        private dialog: MatDialog,
+        private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
   }
@@ -23,6 +29,26 @@ export class LoginComponent implements OnInit {
     Forgetpass: boolean = false;
     Signup: boolean = false;
 
+    loading= false;
+    color = 'primary';
+    mode = 'determinate';
+    value = 50;
+    bufferValue = 75;
+
+    ngAfterViewInit() {
+        this.router.events
+            .subscribe((event) => {
+                if (event instanceof NavigationStart) {
+                    
+                }
+                else if (
+                    event instanceof NavigationEnd ||
+                    event instanceof NavigationCancel
+                ) {
+                    this.spinner.hide();
+                }
+            });
+    }
 
     Forgetpasswordfun() {
         this.Login1 = false;
@@ -72,6 +98,8 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+        this.loading = true;
+        this.spinner.show();
         console.log(JSON.stringify(this.Loginsignup.value))
         const login = this.Loginsignup.value;
         let body = JSON.stringify(login);
@@ -79,12 +107,13 @@ export class LoginComponent implements OnInit {
             console.log('resultis',res)
             //res.body.message
             if (res.body.message && res.body.message === 'SignIn success') {
+                
                 console.log('Valid login')
                 this.router.navigateByUrl('/recentdata');
             }
         },
         (err: HttpResponse<Login>) => {
-            
+            this.spinner.hide();
             const dialogConfig = new MatDialogConfig();
             dialogConfig.autoFocus = true;
             dialogConfig.width = '275px';

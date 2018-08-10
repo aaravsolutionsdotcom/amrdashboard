@@ -40,7 +40,7 @@ import { DisplayErrorDialog } from '../../dashboard/downloadcsv/downloadcsv.comp
 import { SearchByNamePipe } from '../../dashboard/search-by-devicename.pipe'
 import { Updatepassword, DisplayPasswordMessage } from '../../user-profile/user-profile.component'
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material'
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
     imports: [
@@ -67,7 +67,8 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angu
       MatDatepickerModule, 
       CalendarModule,
       AccordionModule,
-      MatNativeDateModule,
+        MatNativeDateModule,
+        MatProgressBarModule
        
   ],
     declarations: [

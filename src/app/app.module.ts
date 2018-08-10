@@ -18,8 +18,8 @@ import { LoginComponent } from '../login/login.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatButtonModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,9 +27,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material'
 import { DisplayLoginErrorDialog } from '../login/login.component'
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  imports: [
+    imports: [
+    MatToolbarModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -40,8 +44,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxChartsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatDialogModule
-      
+    MatDialogModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AppComponent,
@@ -50,6 +56,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
     providers: [],
     entryComponents: [DisplayLoginErrorDialog],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

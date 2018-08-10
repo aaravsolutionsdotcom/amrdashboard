@@ -16,7 +16,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HeaderComponent } from '../app/layouts/header/header.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpRequestService} from '../../src/services/http-request.service'
+import { HttpRequestService } from '../../src/services/http-request.service'
+import { NgxSpinnerModule } from 'ngx-spinner';
 const routes: Routes = [ 
   {
         path: '',
@@ -57,6 +58,7 @@ const routes: Routes = [
       BrowserAnimationsModule,
       HttpModule,
       HttpClientModule,
+      NgxSpinnerModule,
     ],
     providers: [
         HttpRequestService
