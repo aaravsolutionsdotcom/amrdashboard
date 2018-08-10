@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, AfterViewInit  {
   ngOnInit() {
   }
     hide = true;
-    Login1: boolean = true;
+    Login: boolean = true;
     Forgetpass: boolean = false;
     Signup: boolean = false;
 
@@ -50,22 +50,32 @@ export class LoginComponent implements OnInit, AfterViewInit  {
             });
     }
 
-    Forgetpasswordfun() {
-        this.Login1 = false;
-        this.Forgetpass = true;
-    }
-
-    CreateAcc() {
-        this.Login1 = false;
-        this.Forgetpass = false;
-        this.Signup = false;
-    }
-
+    
     Loginsignup: FormGroup = new FormGroup({
         username: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', Validators.required),
         apiKey: new FormControl('', Validators.required),
     });
+
+    Forgetpasswordfun() {
+        this.Login = false;
+        this.Signup = false;
+        this.Forgetpass = true;
+        this.Loginsignup.get('password').setValue('x');
+    }
+
+    CreateAcc() {
+        this.Login = false;
+        this.Forgetpass = false;
+        this.Signup = true;
+    }
+
+    getbacktologin() {
+        this.Login = true;
+        this.Forgetpass = false;
+        this.Signup = false;
+        this.Loginsignup.get('password').setValue('');
+    }
 
     get usernameget() {
         return this.Loginsignup.get('username')
