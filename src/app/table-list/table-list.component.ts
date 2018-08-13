@@ -45,7 +45,6 @@ export class TableListComponent implements OnInit {
             //sorting the devices in decesnding order
             this.devices.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());
 
-            var meterid = 0;
             for (let i = 0; i < this.devices.length; i++) {
                 var k = 0;
                 for (let j = 0; j < this.deviceslatest.length; j++) {
@@ -54,13 +53,12 @@ export class TableListComponent implements OnInit {
                     }
                 }
                 if (k === 0) {
-                    meterid++;
                     this.deviceslatest.push({
                         "deviceName": this.devices[i].deviceInfo.deviceName,
                     });
 
                     this.actualbardata.push({
-                        "name": "meter" + meterid,
+                        "name": this.devices[i].deviceInfo.deviceName,
                         "value": Number(this.devices[i].utilityData.lastunits)
                     })
                 }
