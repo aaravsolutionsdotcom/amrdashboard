@@ -41,6 +41,7 @@ import { SearchByNamePipe } from '../../dashboard/search-by-devicename.pipe'
 import { Updatepassword, DisplayPasswordMessage } from '../../user-profile/user-profile.component'
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AtomSpinnerModule, FlowerSpinnerModule, IntersectingCirclesSpinnerModule, OrbitSpinnerModule, RadarSpinnerModule } from 'angular-epic-spinners'
 
 @NgModule({
     imports: [
@@ -67,9 +68,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
       MatDatepickerModule, 
       CalendarModule,
       AccordionModule,
-        MatNativeDateModule,
-        MatProgressBarModule
-       
+      MatNativeDateModule,
+      MatProgressBarModule,
+      AtomSpinnerModule,
+      FlowerSpinnerModule,
+      IntersectingCirclesSpinnerModule,
+      OrbitSpinnerModule,
+      RadarSpinnerModule 
   ],
     declarations: [
         FilterPipe,

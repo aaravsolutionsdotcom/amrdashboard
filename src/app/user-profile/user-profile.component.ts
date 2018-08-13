@@ -79,6 +79,7 @@ export class UserProfileComponent implements OnInit {
 })
 export class Updatepassword {
     updatepassword: FormGroup;
+    display = false;
     constructor(
         private dialog: MatDialog,
         public dialogRef: MatDialogRef<Updatepassword>,
@@ -97,10 +98,11 @@ export class Updatepassword {
     }
 
     onupdate() {
-        
+        this.display = true;
         if (this.updatepassword.get('newpassword').value == this.updatepassword.get('confirmpassword').value) {
             this.httpreq.updatepassword({ "password": this.updatepassword.get('newpassword').value }).subscribe(res => {
                 this.dialogRef.close();
+                
                 console.log('resultinupdatepassword', res)
                 const dialogConfig = new MatDialogConfig();
                 dialogConfig.autoFocus = true;
@@ -108,6 +110,7 @@ export class Updatepassword {
                 dialogConfig.height = '270px';
                 dialogConfig.disableClose = true;
                 dialogConfig.data = { 'errorheader': 'Sucess', 'errormessage': "Updated Password Sucessfully" }
+                this.display = false;
                 const dialogRef = this.dialog.open(DisplayPasswordMessage, dialogConfig);
                 dialogRef.afterOpen().subscribe(
                     val => {
@@ -118,12 +121,14 @@ export class Updatepassword {
 
         }
         else {
+            this.display = false;
             const dialogConfig = new MatDialogConfig();
             dialogConfig.autoFocus = true;
             dialogConfig.width = '400px';
             dialogConfig.height = '270px';
             dialogConfig.disableClose = true;
             dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "Passwords are not Matching" }
+            this.display = false;
             const dialogRef = this.dialog.open(DisplayPasswordMessage, dialogConfig);
             dialogRef.afterClosed().subscribe(
                 val => console.log("Dialog output:", val)

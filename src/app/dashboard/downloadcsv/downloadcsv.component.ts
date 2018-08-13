@@ -103,7 +103,6 @@ export class DownloadcsvComponent implements OnInit {
                     val => console.log("Dialog output:", val)
                 );
             }
-            console.log('after processing device data', newArr)
         }
 
     }

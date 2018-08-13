@@ -13,6 +13,17 @@
                             <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchTextId" name="searchText" [(ngModel)]="searchText">
                             <br />
                             <br />
+                            <div *ngIf="display" style="margin-top:60px;width:100px; margin:0 auto;">
+                                <div style="width:100px; margin:0 auto;">
+                                    <app-radar-spinner [animationDuration]="1000"
+                                                       [size]="100"
+                                                       [color]="'#ff1d5e'">
+                                    </app-radar-spinner>
+                                </div>
+                                <div style="width:50px; margin:0 auto;">
+                                    <span>Loading..</span>
+                                </div>
+                            </div>
                             <table class="table">
                                 <tbody>
                                     <tr *ngFor="let device of (uniqueArray | searchByName: searchText) | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
