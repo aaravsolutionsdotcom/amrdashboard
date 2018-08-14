@@ -17,7 +17,7 @@
                             <mat-card-title *ngIf="this.Signup === true" [ngStyle]="{'font-size':'16px'}">Create Account</mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                            <form [formGroup]="Loginsignup">
+                            <form *ngIf="this.Signup === false" [formGroup]="Loginsignup">
                                 <mat-form-field appearance="outline" class="full-width-input">
                                     <mat-label style="font-weight:600;font-size:13px">Email</mat-label>
                                     <input matInput placeholder="xyz@aaravsolutions.com" formControlName="username" id="username" required>
@@ -38,16 +38,41 @@
                                     Forgot
                                     <a href="#" (click)="Forgetpasswordfun()">&nbsp; Password?</a>
                                 </p>
-                                <mat-form-field appearance="outline" class="full-width-input">
+                                <mat-form-field *ngIf="this.Signup === false" appearance="outline" class="full-width-input">
                                     <mat-label style="font-weight:600;font-size:13px">ApiKey</mat-label>
                                     <input matInput formControlName="apiKey" id="apiKey" required>
                                     <mat-error *ngIf="apiKeyget.touched && apiKeyget.invalid">
-                                        <mat-error *ngIf="apiKeyget.errors.required"> {{getapiKeygetdErrorMessage()}}</mat-error>
+                                        <mat-error *ngIf="apiKeyget.errors.required"> {{getapiKeyErrorMessage()}}</mat-error>
                                     </mat-error>
                                 </mat-form-field>
                                 <button *ngIf="this.Login === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid" (click)="login()">Login</button>
                                 <button *ngIf="this.Forgetpass === true" mat-raised-button color="primary"  [disabled]="!Loginsignup.valid">Next</button>
-                                <button *ngIf="this.Signup === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid">Signup</button>
+                            </form>
+                            <form *ngIf="this.Signup === true" [formGroup]="signupLogin">
+                                    <mat-form-field appearance="outline" class="full-width-input">
+                                        <mat-label style="font-weight:600;font-size:13px">Email</mat-label>
+                                        <input matInput placeholder="xyz@aaravsolutions.com" formControlName="email" id="email" required>
+                                        <mat-error *ngIf="emailget.touched && emailget.invalid">
+                                            <mat-error *ngIf="emailget.errors.required"> {{getemailErrorMessage()}}</mat-error>
+                                            <mat-error *ngIf="emailget.errors.email"> {{getemailErrorMessage()}}</mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="this.Forgetpass === false" appearance="outline" class="full-width-input">
+                                        <mat-label style="font-weight:600;font-size:13px">Password</mat-label>
+                                        <input matInput type="password" [type]="hideSignup ? 'password' : 'text'" formControlName="pswrd" id="pswrd" required>
+                                        <mat-icon matSuffix (click)="hideSignup = !hideSignup">{{hideSignup ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                        <mat-error *ngIf="pswrdget.touched && pswrdget.invalid">
+                                            <mat-error *ngIf="pswrdget.errors.required"> {{getpswrdErrorMessage()}}</mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="this.Signup === true" appearance="outline" class="full-width-input">
+                                        <mat-label style="font-weight:600;font-size:13px">Company Name</mat-label>
+                                        <input matInput formControlName="companyName" id="companyName" required>
+                                        <mat-error *ngIf="companyNameget.touched && companyNameget.invalid">
+                                            <mat-error *ngIf="companyNameget.errors.required"> {{getcompanyNameErrorMessage()}} </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <button *ngIf="this.Signup === true" mat-raised-button color="primary" [disabled]="!signupLogin.valid" (click)="signup()">Signup</button>
                             </form>
                         </mat-card-content>
                         <div class="modal-footer">
