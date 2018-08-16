@@ -47,14 +47,14 @@
                                 </mat-form-field>
                                 <mat-form-field *ngIf="this.Signup === true" appearance="outline" class="full-width-input">
                                     <mat-label style="font-weight:600;font-size:13px">CompanyName</mat-label>
-                                    <input matInput formControlName="apiKey" id="apiKey" required>
-                                    <mat-error *ngIf="apiKeyget.touched && apiKeyget.invalid">
-                                        <mat-error *ngIf="apiKeyget.errors.required"> {{getapiKeygetdErrorMessage()}}</mat-error>
+                                    <input matInput formControlName="companyName" id="companyName" required>
+                                    <mat-error *ngIf="companyNameget.touched && companyNameget.invalid">
+                                        <mat-error *ngIf="companyNameget.errors.required"> {{getcompanyNamegetdErrorMessage()}}</mat-error>
                                     </mat-error>
                                 </mat-form-field>
                                 <button *ngIf="this.Login === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid" (click)="login()">Login</button>
                                 <button *ngIf="this.Forgetpass === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid">Next</button>
-                                <button *ngIf="this.Signup === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid">Signup</button>
+                                <button *ngIf="this.Signup === true" mat-raised-button color="primary" [disabled]="!Loginsignup.valid" (click)="signup()">Signup</button>
                             </form>
                         </mat-card-content>
                         <div class="modal-footer">

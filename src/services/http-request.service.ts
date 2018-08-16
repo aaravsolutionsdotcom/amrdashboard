@@ -52,6 +52,41 @@ export class HttpRequestService {
         );
     }
 
+    createProfile(signup: any): Observable<HttpResponse<any>> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            withCredentials: true,
+            crossDomain: true,
+            observe: 'response' as 'response'
+        };  
+        return this.http.post<any>(this.userprofile, signup, httpOptions)
+        .pipe(
+               
+        );
+    }
+
+
+    createUserProfile(profile: any): Observable<HttpResponse<any>> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            withCredentials: true,
+            crossDomain: true,
+            observe: 'response' as 'response'
+        };  
+        return this.http.post<any>(this.userprofile, profile, httpOptions)
+        .pipe(
+               
+        );
+    }
+
+    
+
     updatepasswordurl = 'http://45.55.129.192:5000/api/change-password';
     updatepassword(passwordinfo: any): Observable<HttpResponse<any>> {
         console.log('updatedpassword:',passwordinfo)

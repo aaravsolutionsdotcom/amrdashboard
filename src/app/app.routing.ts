@@ -18,7 +18,8 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpRequestService } from '../../src/services/http-request.service'
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { AtomSpinnerModule } from 'angular-epic-spinners'
+import { ClipboardModule } from 'ngx-clipboard';
+
 const routes: Routes = [ 
   {
         path: '',
@@ -60,7 +61,7 @@ const routes: Routes = [
       HttpModule,
       HttpClientModule,
       NgxSpinnerModule,
-      AtomSpinnerModule,
+      ClipboardModule,
     ],
     providers: [
         HttpRequestService

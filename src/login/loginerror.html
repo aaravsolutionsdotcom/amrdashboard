@@ -1,8 +1,17 @@
 <div class="modal-header">
-    <h4 class="modal-title">Error</h4>
+    <h4 class="modal-title">{{header}}</h4>
 </div>
 <div class="modal-body">
-   Please enter a valid Email,Password,ApiKey
+    {{errormessage}}
+    <div *ngIf="errormessage1">
+        {{errormessage1}}
+    </div>
+    <div *ngIf="apiKey">
+        <form [formGroup]="signupDailog">
+            <input type="text" id="apiKey" formControlName="apiKey" class="form-control" disabled>
+            <button (click)="copyMessage()" ngxClipboard [cbContent]="apiKey" type="button" class="btn btn-success">Copy to Clipboard</button>
+        </form>
+    </div>
 </div>
 <div class="modal-footer">
     <button (click)="closeModal()" type="button" class="btn btn-danger btn-lg">Close</button>

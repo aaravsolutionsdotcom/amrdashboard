@@ -11,6 +11,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+export interface DialogData {
+    deviceid: string;
+    deviceref;
+    errormessage: string;
+    errormessage1: string;
+    apiKey: string;
+    errorheader:string
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -54,6 +63,7 @@ export class LoginComponent implements OnInit, AfterViewInit  {
         username: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', Validators.required),
         apiKey: new FormControl('', Validators.required),
+        companyName: new FormControl(' ', Validators.required),
     });
 
     Forgetpasswordfun() {
@@ -61,12 +71,16 @@ export class LoginComponent implements OnInit, AfterViewInit  {
         this.Signup = false;
         this.Forgetpass = true;
         this.Loginsignup.get('password').setValue('x');
+        this.Loginsignup.get('apiKey').setValue('');
+        this.Loginsignup.get('companyName').setValue(' ');
     }
 
     CreateAcc() {
         this.Login = false;
         this.Forgetpass = false;
         this.Signup = true;
+        this.Loginsignup.get('apiKey').setValue(' ');
+        this.Loginsignup.get('companyName').setValue('');
     }
 
     getbacktologin() {
@@ -74,6 +88,8 @@ export class LoginComponent implements OnInit, AfterViewInit  {
         this.Forgetpass = false;
         this.Signup = false;
         this.Loginsignup.get('password').setValue('');
+        this.Loginsignup.get('apiKey').setValue('');
+        this.Loginsignup.get('companyName').setValue(' ');
     }
 
     get usernameget() {
@@ -106,6 +122,16 @@ export class LoginComponent implements OnInit, AfterViewInit  {
             '';
     }
 
+    get companyNameget() {
+        return this.Loginsignup.get('companyName')
+    }
+
+    getcompanyNamegetdErrorMessage() {
+
+        return this.Loginsignup.get('companyName').hasError('required') ? 'You must enter a value' :
+            '';
+    }
+
     login() {
         this.loading = true;
         this.spinner.show();
@@ -128,12 +154,62 @@ export class LoginComponent implements OnInit, AfterViewInit  {
             dialogConfig.width = '275px';
             dialogConfig.height = '210px';
             dialogConfig.disableClose = true;
-            dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "To date can't before or equal to From date" }
+            dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "Please enter a valid Email,Password,ApiKey" }
             const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
             dialogRef.afterClosed().subscribe(
-                val => console.log("Dialog output:", val)
-            );
-        });
+                val => { console.log("Dialog output:", val); } 
+            )
+        }
+        );
+    }
+    
+    signup() {
+        this.loading = true;
+        this.spinner.show();
+        console.log(JSON.stringify(this.Loginsignup.value))
+        const signup = {
+                "username":this.Loginsignup.get('username').value,
+                "password":this.Loginsignup.get('password').value,
+                "entityName":this.Loginsignup.get('companyName').value,
+        }
+        let body = JSON.stringify(signup);
+        this.httpreq.createProfile(body).subscribe((res: HttpResponse<Login>) => {
+            console.log('resultis',res)
+            //res.body.message
+            if (res.body.message && res.body.message === 'SignUp success') {
+                
+                console.log('User created')
+                this.spinner.hide();
+                const dialogConfig = new MatDialogConfig();
+                dialogConfig.autoFocus = true;
+                dialogConfig.width = '400px';
+                dialogConfig.height = '300px';
+                dialogConfig.disableClose = true;
+                dialogConfig.data = { 'errorheader': 'Message', 'errormessage': 'User created successfully.', 'errormessage1': 'Please copy the below Api Key to login. ','apiKey': res.body.apiKey }
+                const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
+                dialogRef.afterClosed().subscribe(
+                val => {
+                    console.log("Signup dialog output:", val);
+                    if(val.errorheader === "Message") {
+                        this.getbacktologin();
+                        this.Loginsignup.get('apiKey').setValue(res.body.apiKey);
+                    }
+                }
+                )
+            }
+        },
+        (err: HttpResponse<Login>) => {
+            this.spinner.hide();
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.autoFocus = true;
+            dialogConfig.width = '275px';
+            dialogConfig.height = '220px';
+            dialogConfig.disableClose = true;
+            dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "Either Username or Company name is/are taken" }
+            const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
+            dialogRef.afterClosed().subscribe(
+                val => { console.log("Dialog output:", val); }
+        )});
     }
     
 }
@@ -141,16 +217,41 @@ export class LoginComponent implements OnInit, AfterViewInit  {
 @Component({
     templateUrl: './loginerror.html',
 })
-export class DisplayLoginErrorDialog {
+
+export class DisplayLoginErrorDialog implements OnInit {
+    errormessage: any;
+    errormessage1: any;
+    header: any;
+    apiKey: string;
+    signupDailog: FormGroup;
+    text1: string;
 
     constructor(
-        public dialogRef: MatDialogRef<DisplayLoginErrorDialog>)
-    {
-
-       
+        public dialogRef: MatDialogRef<DisplayLoginErrorDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData, private dialog: MatDialog,
+    ) {
+        this.errormessage = data.errormessage;
+        if(data.errormessage1) {
+            this.errormessage1 = data.errormessage1;
+        }
+        this.header = data.errorheader;
+        if(data.apiKey) {
+            this.apiKey=data.apiKey;
+        }
+        console.log(this.errormessage);
+    }
+    ngOnInit() {
+        this.signupDailog = new FormGroup({
+            apiKey: new FormControl(''),
+        });
+        this.signupDailog.get('apiKey').setValue(this.data.apiKey);
     }
 
+    copyMessage() {
+        
+    }
     closeModal(): void {
-        this.dialogRef.close();
+
+        this.dialogRef.close(this.data);
     }
 }

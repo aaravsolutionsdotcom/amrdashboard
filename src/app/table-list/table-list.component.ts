@@ -87,7 +87,7 @@ export class TableListComponent implements OnInit {
                     });
 
                     this.actualbardata.push({
-                        "name": "meter" + meterid,
+                        "name": this.devices[i].deviceInfo.deviceName,
                         "value": Number(this.devices[i].utilityData.lastunits)
                     })
                 }
