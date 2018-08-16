@@ -117,19 +117,81 @@
                         </div>
                     </div>
                     <div *ngIf="showinfocard === true" class="row" style="padding-left: 2pt;width=100%">
-                        <ngx-charts-bar-vertical [view]="barview"
-                                                 [scheme]="barcolorScheme"
-                                                 [results]="deviceinfographdata"
-                                                 [gradient]="bargradient"
-                                                 [xAxis]="barshowXAxis"
-                                                 [yAxis]="barshowYAxis"
-                                                 [legend]="barshowLegend"
-                                                 [showXAxisLabel]="barshowXAxisLabel"
-                                                 [showYAxisLabel]="barshowYAxisLabel"
-                                                 [xAxisLabel]="barxAxisLabel"
-                                                 [yAxisLabel]="baryAxisLabel"
-                                                 (select)="onSelect($event)">
-                        </ngx-charts-bar-vertical>
+                        <div *xl>
+                            <ngx-charts-bar-vertical [view]="barview"
+                                                     [scheme]="barcolorScheme"
+                                                     [results]="deviceinfographdata"
+                                                     [gradient]="bargradient"
+                                                     [xAxis]="barshowXAxis"
+                                                     [yAxis]="barshowYAxis"
+                                                     [legend]="barshowLegend"
+                                                     [showXAxisLabel]="barshowXAxisLabel"
+                                                     [showYAxisLabel]="barshowYAxisLabel"
+                                                     [xAxisLabel]="barxAxisLabel"
+                                                     [yAxisLabel]="baryAxisLabel"
+                                                     (select)="onSelect($event)">
+                            </ngx-charts-bar-vertical>
+                        </div>
+                        <div *lg>
+                            <ngx-charts-bar-vertical [view]="barview"
+                                                     [scheme]="barcolorScheme"
+                                                     [results]="deviceinfographdata"
+                                                     [gradient]="bargradient"
+                                                     [xAxis]="barshowXAxis"
+                                                     [yAxis]="barshowYAxis"
+                                                     [legend]="barshowLegend"
+                                                     [showXAxisLabel]="barshowXAxisLabel"
+                                                     [showYAxisLabel]="barshowYAxisLabel"
+                                                     [xAxisLabel]="barxAxisLabel"
+                                                     [yAxisLabel]="baryAxisLabel"
+                                                     (select)="onSelect($event)">
+                            </ngx-charts-bar-vertical>
+                        </div>
+                        <div *md>
+                            <ngx-charts-bar-vertical [view]="barviewmd"
+                                                     [scheme]="barcolorScheme"
+                                                     [results]="deviceinfographdata"
+                                                     [gradient]="bargradient"
+                                                     [xAxis]="barshowXAxis"
+                                                     [yAxis]="barshowYAxis"
+                                                     [legend]="barshowLegend"
+                                                     [showXAxisLabel]="barshowXAxisLabel"
+                                                     [showYAxisLabel]="barshowYAxisLabel"
+                                                     [xAxisLabel]="barxAxisLabel"
+                                                     [yAxisLabel]="baryAxisLabel"
+                                                     (select)="onSelect($event)">
+                            </ngx-charts-bar-vertical>
+                        </div>
+                        <div *sm>
+                            <ngx-charts-bar-vertical [view]="barviewsm"
+                                                     [scheme]="barcolorScheme"
+                                                     [results]="deviceinfographdata"
+                                                     [gradient]="bargradient"
+                                                     [xAxis]="barshowXAxis"
+                                                     [yAxis]="barshowYAxis"
+                                                     [legend]="barshowLegend"
+                                                     [showXAxisLabel]="barshowXAxisLabel"
+                                                     [showYAxisLabel]="barshowYAxisLabel"
+                                                     [xAxisLabel]="barxAxisLabel"
+                                                     [yAxisLabel]="baryAxisLabel"
+                                                     (select)="onSelect($event)">
+                            </ngx-charts-bar-vertical>
+                        </div>
+                        <div *xs>
+                            <ngx-charts-bar-vertical [view]="barviewxs"
+                                                     [scheme]="barcolorScheme"
+                                                     [results]="deviceinfographdata"
+                                                     [gradient]="bargradient"
+                                                     [xAxis]="barshowXAxis"
+                                                     [yAxis]="barshowYAxis"
+                                                     [legend]="barshowLegend"
+                                                     [showXAxisLabel]="barshowXAxisLabel"
+                                                     [showYAxisLabel]="barshowYAxisLabel"
+                                                     [xAxisLabel]="barxAxisLabel"
+                                                     [yAxisLabel]="baryAxisLabel"
+                                                     (select)="onSelect($event)">
+                            </ngx-charts-bar-vertical>
+                        </div>
                     </div>
                 </div>
             </div>

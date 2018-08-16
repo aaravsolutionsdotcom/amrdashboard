@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit, AfterViewInit  {
   ngOnInit() {
   }
     hide = true;
-    hideSignup = true;
     Login: boolean = true;
     Forgetpass: boolean = false;
     Signup: boolean = false;
@@ -57,12 +56,6 @@ export class LoginComponent implements OnInit, AfterViewInit  {
         apiKey: new FormControl('', Validators.required),
     });
 
-    signupLogin: FormGroup = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email]),
-        pswrd: new FormControl('', Validators.required),
-        companyName: new FormControl('', Validators.required),
-    });
-
     Forgetpasswordfun() {
         this.Login = false;
         this.Signup = false;
@@ -86,6 +79,7 @@ export class LoginComponent implements OnInit, AfterViewInit  {
     get usernameget() {
         return this.Loginsignup.get('username')
     }
+
     getusernameErrorMessage() {
 
         return this.Loginsignup.get('username').hasError('required') ? 'You must enter a value' :
@@ -96,46 +90,19 @@ export class LoginComponent implements OnInit, AfterViewInit  {
     get passwordget() {
         return this.Loginsignup.get('password')
     }
+
     getpasswordErrorMessage() {
 
         return this.Loginsignup.get('password').hasError('required') ? 'You must enter a value' :
             '';
     }
-
     get apiKeyget() {
         return this.Loginsignup.get('apiKey')
     }
-    getapiKeyErrorMessage() {
+
+    getapiKeygetdErrorMessage() {
 
         return this.Loginsignup.get('apiKey').hasError('required') ? 'You must enter a value' :
-            '';
-    }
-
-    get emailget() {
-        return this.signupLogin.get('email')
-    }
-    getemailErrorMessage() {
-
-        return this.signupLogin.get('email').hasError('required') ? 'You must enter a value' :
-            this.signupLogin.get('email').hasError('email') ? 'Not a valid email' :
-                '';
-    }
-
-    get pswrdget() {
-        return this.signupLogin.get('pswrd')
-    }
-    getpswrdErrorMessage() {
-
-        return this.signupLogin.get('pswrd').hasError('required') ? 'You must enter a value' :
-            '';
-    }
-
-    get companyNameget() {
-        return this.signupLogin.get('companyName')
-    }
-    getcompanyNameErrorMessage() {
-
-        return this.signupLogin.get('companyName').hasError('required') ? 'You must enter a value' :
             '';
     }
 
@@ -167,10 +134,6 @@ export class LoginComponent implements OnInit, AfterViewInit  {
                 val => console.log("Dialog output:", val)
             );
         });
-    }
-
-    signup() {
-
     }
     
 }

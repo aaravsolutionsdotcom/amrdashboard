@@ -42,11 +42,24 @@ import { Updatepassword, DisplayPasswordMessage } from '../../user-profile/user-
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AtomSpinnerModule, FlowerSpinnerModule, IntersectingCirclesSpinnerModule, OrbitSpinnerModule, RadarSpinnerModule } from 'angular-epic-spinners'
+import { ResponsiveModule } from 'ngx-responsive'
+
+const config = {
+    breakPoints: {
+        xs: { max: 600 },
+        sm: { min: 601, max: 959 },
+        md: { min: 960, max: 1279 },
+        lg: { min: 1280, max: 1919 },
+        xl: { min: 1920 }
+    },
+    debounceTime: 100
+};
 
 @NgModule({
     imports: [
     Ng2SearchPipeModule,
     Ng4LoadingSpinnerModule.forRoot(),
+    ResponsiveModule.forRoot(config),
     NgxSpinnerModule,
     NgxPaginationModule,
     Ng2OrderModule,
