@@ -8,10 +8,23 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { LoginComponent } from '../../../login/login.component';
-
+import { ReportsComponent } from '../../reports/reports.component';
+import { MonthlyreportsComponent } from "../../monthlyreports/monthlyreports.component"
+import { YeralyreportsComponent } from "../../yeralyreports/yeralyreports.component"
+import { DailyreportsComponent } from "../../dailyreports/dailyreports.component"
 export const AdminLayoutRoutes: Routes = [
     { path: 'devices',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'recentdata',     component: TableListComponent },
-    { path: 'settings',          component: IconsComponent },
+    { path: 'settings', component: IconsComponent },
+    {
+        path: 'reports',
+        component: ReportsComponent,
+        children: [
+            { path: '', redirectTo: 'monthlyreport', component: MonthlyreportsComponent },
+            { path: 'dailyreport', component: DailyreportsComponent },
+            { path: 'monthlyreport', component: MonthlyreportsComponent },
+            { path: 'yearlyreport', component: YeralyreportsComponent }
+        ]
+    },
 ];

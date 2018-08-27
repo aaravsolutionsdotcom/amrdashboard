@@ -10,6 +10,7 @@ import { HttpRequestService } from '../../src/services/http-request.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material';
 
 export interface DialogData {
     deviceid: string;
@@ -17,7 +18,8 @@ export interface DialogData {
     errormessage: string;
     errormessage1: string;
     apiKey: string;
-    errorheader:string
+    errorheader: string;
+   
 }
 
 @Component({
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit, AfterViewInit  {
 
     constructor(private http: HttpClient, private httpreq: HttpRequestService, private router: Router,
         private dialog: MatDialog,
-        private spinner: NgxSpinnerService) { }
+        private spinner: NgxSpinnerService,
+        public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -177,7 +180,48 @@ export class LoginComponent implements OnInit, AfterViewInit  {
             console.log('resultis',res)
             //res.body.message
             if (res.body.message && res.body.message === 'SignUp success') {
-                
+
+                /*let emaildata = JSON.stringify({
+                    'apiKey': res.body.apiKey,
+                    'toaddress': this.Loginsignup.get('username').value
+                })
+
+                this.httpreq.sendemail(emaildata).subscribe((mailres: HttpResponse<Login>) => {
+                    console.log('email response', mailres);
+                    if (mailres.body.success === true) {
+                        console.log('User created')
+                        this.spinner.hide();
+                        const dialogConfig = new MatDialogConfig();
+                        dialogConfig.autoFocus = true;
+                        dialogConfig.width = '400px';
+                        dialogConfig.height = '300px';
+                        dialogConfig.disableClose = true;
+                        dialogConfig.data = { 'errorheader': 'Message', 'errormessage': 'User created successfully.', 'errormessage1': 'Please copy the below Api Key to login. ', 'apiKey': res.body.apiKey }
+                        const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
+                        dialogRef.afterClosed().subscribe(
+                            val => {
+                                console.log("Signup dialog output:", val);
+                                if (val.errorheader === "Message") {
+                                    this.getbacktologin();
+                                    this.Loginsignup.get('apiKey').setValue(res.body.apiKey);
+                                    this.openSnackBar('Welcome To AMR', 'API Key is mailed to Registered Email')
+                                }
+                            })
+                    }
+                    else {
+                        this.spinner.hide();
+                        const dialogConfig = new MatDialogConfig();
+                        dialogConfig.autoFocus = true;
+                        dialogConfig.width = '275px';
+                        dialogConfig.height = '220px';
+                        dialogConfig.disableClose = true;
+                        dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "Seems like Not a Valid Email Address" }
+                        const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
+                        dialogRef.afterClosed().subscribe(
+                            val => { console.log("Dialog output:", val); })
+                    }
+                });*/
+
                 console.log('User created')
                 this.spinner.hide();
                 const dialogConfig = new MatDialogConfig();
@@ -185,17 +229,18 @@ export class LoginComponent implements OnInit, AfterViewInit  {
                 dialogConfig.width = '400px';
                 dialogConfig.height = '300px';
                 dialogConfig.disableClose = true;
-                dialogConfig.data = { 'errorheader': 'Message', 'errormessage': 'User created successfully.', 'errormessage1': 'Please copy the below Api Key to login. ','apiKey': res.body.apiKey }
+                dialogConfig.data = { 'errorheader': 'Message', 'errormessage': 'User created successfully.', 'errormessage1': 'Please copy the below Api Key to login. ', 'apiKey': res.body.apiKey }
                 const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
                 dialogRef.afterClosed().subscribe(
-                val => {
-                    console.log("Signup dialog output:", val);
-                    if(val.errorheader === "Message") {
-                        this.getbacktologin();
-                        this.Loginsignup.get('apiKey').setValue(res.body.apiKey);
-                    }
-                }
-                )
+                    val => {
+                        console.log("Signup dialog output:", val);
+                        if (val.errorheader === "Message") {
+                            this.getbacktologin();
+                            this.Loginsignup.get('apiKey').setValue(res.body.apiKey);
+                            this.openSnackBar('Welcome To', 'AMR')
+                        }
+                    })
+                
             }
         },
         (err: HttpResponse<Login>) => {
@@ -208,8 +253,14 @@ export class LoginComponent implements OnInit, AfterViewInit  {
             dialogConfig.data = { 'errorheader': 'Error', 'errormessage': "Either Username or Company name is/are taken" }
             const dialogRef = this.dialog.open(DisplayLoginErrorDialog, dialogConfig);
             dialogRef.afterClosed().subscribe(
-                val => { console.log("Dialog output:", val); }
-        )});
+                val => { console.log("Dialog output:", val); })
+        });
+    }
+
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 10000,
+        });
     }
     
 }

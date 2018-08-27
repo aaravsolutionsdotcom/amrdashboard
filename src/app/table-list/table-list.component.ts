@@ -67,7 +67,8 @@ export class TableListComponent implements OnInit {
         this.responsiveSizeInfoRx.connect();
         this.userAgentInfoRx.connect();
         this.httpreq.getdevices().subscribe(devicesre => {
-            
+
+            console.log('device recent data', devicesre)
             this.devices = devicesre;
             //sorting the devices in decesnding order
             this.devices.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());

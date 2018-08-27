@@ -112,4 +112,19 @@ export class HttpRequestService {
 
         );
     }
+
+    email = 'http://localhost:3333/sendmail';
+    sendemail(emaildata: any): Observable<HttpResponse<any>> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            observe: 'response' as 'response'
+        };
+        return this.http.post<any>(this.email, emaildata, httpOptions)
+            .pipe(
+
+            );
+    }
 }

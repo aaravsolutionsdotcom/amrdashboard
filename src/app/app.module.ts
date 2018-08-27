@@ -32,6 +32,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClipboardModule } from 'ngx-clipboard';
 
+
+
 @NgModule({
     imports: [
     MatToolbarModule,
@@ -50,11 +52,12 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatProgressSpinnerModule,
     NgxSpinnerModule,
     ClipboardModule,
+    
   ],
   declarations: [
     AppComponent,
       AdminLayoutComponent,
-      DisplayLoginErrorDialog
+      DisplayLoginErrorDialog,
   ],
     providers: [],
     entryComponents: [DisplayLoginErrorDialog],
