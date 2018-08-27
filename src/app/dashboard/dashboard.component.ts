@@ -180,7 +180,7 @@ export class DashboardComponent implements OnInit {
         this.deviceinfographdata = this.getcurentunitsdate(devicename)
         this.deviceinfographdata.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         this.deviceinfographdata = this.deviceinfographdata.slice(0,10);
-        //this.deviceinfographdata = this.deviceinfographdata.reverse();
+        this.deviceinfographdata = this.deviceinfographdata.reverse();
         console.log(this.deviceinfographdata)
         this.deviceinfoid = device.deviceInfo.deviceName;
         this.deviceinfosn = device.deviceInfo.serialNum;
