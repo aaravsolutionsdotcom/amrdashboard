@@ -156,6 +156,7 @@ export class DashboardComponent implements OnInit {
                 newArr.push({
                     "name": this.devices[x].utilityData.lastUpdate,
                     "value": Number(this.devices[x].utilityData.lastunits),
+                    "date": new Date(this.devices[x].utilityData.lastUpdate).getTime(),
                 });
             }
         }
@@ -174,8 +175,12 @@ export class DashboardComponent implements OnInit {
         this.showinfocard = false;
         this.spinner.show();
         this.showStyle = true
+        console.log(device);
         var devicename: string = device.deviceInfo.deviceName;
         this.deviceinfographdata = this.getcurentunitsdate(devicename)
+        this.deviceinfographdata.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        this.deviceinfographdata = this.deviceinfographdata.slice(0,10);
+        this.deviceinfographdata = this.deviceinfographdata.reverse();
         console.log(this.deviceinfographdata)
         this.deviceinfoid = device.deviceInfo.deviceName;
         this.deviceinfosn = device.deviceInfo.serialNum;
