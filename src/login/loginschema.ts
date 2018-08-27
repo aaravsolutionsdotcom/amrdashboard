@@ -4,4 +4,5 @@ export interface Login {
     apiKey: string;
     message: string;
     error: string;
+    success: boolean;
 }

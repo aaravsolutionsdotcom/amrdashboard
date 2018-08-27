@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpRequestService } from '../../src/services/http-request.service'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ClipboardModule } from 'ngx-clipboard';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 const routes: Routes = [ 
   {
@@ -26,7 +28,7 @@ const routes: Routes = [
         component: LoginComponent
   },
   {
-      path: 'recentdata',
+    path: 'recentdata',
     redirectTo: 'login',
     pathMatch: 'full',
   }, {
@@ -62,6 +64,7 @@ const routes: Routes = [
       HttpClientModule,
       NgxSpinnerModule,
       ClipboardModule,
+      MatSnackBarModule
     ],
     providers: [
         HttpRequestService

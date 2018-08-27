@@ -43,6 +43,12 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angu
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AtomSpinnerModule, FlowerSpinnerModule, IntersectingCirclesSpinnerModule, OrbitSpinnerModule, RadarSpinnerModule } from 'angular-epic-spinners'
 import { ResponsiveModule } from 'ngx-responsive'
+import { ReportsComponent } from '../../reports/reports.component';
+import { ReportnavbarComponent } from "../../components/reportnavbar/reportnavbar.component";
+import { ComponentsModule } from '../../components/components.module';
+import { MonthlyreportsComponent } from "../../monthlyreports/monthlyreports.component"
+import { YeralyreportsComponent } from "../../yeralyreports/yeralyreports.component"
+import { DailyreportsComponent } from "../../dailyreports/dailyreports.component"
 
 const config = {
     breakPoints: {
@@ -68,9 +74,10 @@ const config = {
     Ng2FilterPipeModule,
     ReactiveFormsModule,
     MatDialogModule,
-      RouterModule.forChild(AdminLayoutRoutes),
-      FormsModule,
-      HttpModule,
+    ComponentsModule,
+    RouterModule.forChild(AdminLayoutRoutes),
+    FormsModule,
+    HttpModule,
       ChartsModule,
       NgbModule,
       MatInputModule,
@@ -102,8 +109,11 @@ const config = {
         DisplayErrorDialog,
         SearchByNamePipe,
         Updatepassword,
-        DisplayPasswordMessage
-
+        DisplayPasswordMessage,
+        ReportsComponent,
+        MonthlyreportsComponent,
+        YeralyreportsComponent,
+        DailyreportsComponent
     ],
   providers: [
       PaginationService,

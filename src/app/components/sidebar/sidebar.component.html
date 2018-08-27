@@ -5,7 +5,7 @@
     </a>
 </div>
 <div class="sidebar-wrapper">
-    <ul class="nav" >
+    <ul class="nav">
         <!-->li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
         <a [routerLink]="[menuItem.path]">
             <i class="now-ui-icons {{menuItem.icon}}"></i>
@@ -22,6 +22,12 @@
             <a [routerLink]="'/devices'">
                 <i class="design_app now-ui-icons "></i>
                 <p>Devices</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a [routerLink]="'/reports'">
+                <i class="now-ui-icons files_single-copy-04"></i>
+                <p>Reports</p>
             </a>
         </li>
         <li routerLinkActive="active" class="nav-item">

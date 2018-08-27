@@ -18,6 +18,7 @@ export interface DialogData {
   templateUrl: './downloadcsv.component.html',
   styleUrls: ['./downloadcsv.component.scss']
 })
+
 export class DownloadcsvComponent implements OnInit {
 
     deviceid: string;
@@ -39,7 +40,7 @@ export class DownloadcsvComponent implements OnInit {
     }
     fromdate = new FormControl(new Date());
     serializedDate = new FormControl(new Date());
-
+    maxDate = new Date();
     download(){
         if (new Date(this.fromdate.value) >= new Date(this.serializedDate.value)) {
             console.log('inside date mismatch')
