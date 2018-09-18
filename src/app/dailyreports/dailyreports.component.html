@@ -1,3 +1,56 @@
-<p>
-  dailyreports works!
-</p>
+<div style="position: relative;padding: 20px 0px 0px 0px;" class="main-content">
+    <div style="background-color:white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="column" style="padding-left: 130pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                                FROMDATE
+                            </div>
+                            <div class="column" style="padding-left: 200pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+
+                                TODATE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column" style="padding-left: 130pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                                <mat-form-field>
+                                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="fromdate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="column" style="padding-left: 107pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                                <mat-form-field>
+                                    <input [min]="minDate" [max]="maxDate" matInput [matDatepicker]="pickere" [formControl]="todate">
+                                    <mat-datepicker-toggle matSuffix [for]="pickere"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickere></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="column" style="padding-left: 50pt;">
+                                <button class="btn btn-success btn-lg" style="font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="position: relative;padding: 20px 0px 0px 0px;">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
