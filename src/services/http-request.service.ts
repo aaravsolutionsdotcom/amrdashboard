@@ -127,4 +127,49 @@ export class HttpRequestService {
 
             );
     }
+
+    dailyreport = 'http://45.55.129.192:5000/dailyreport';
+    getDailyReport(dailyreportdata: any): Observable<HttpResponse<any>> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            observe: 'response' as 'response'
+        };
+        return this.http.post<any>(this.dailyreport, dailyreportdata, httpOptions)
+            .pipe(
+
+            );
+    }
+
+    monthlyreport = 'http://45.55.129.192:5000/monthlyreport';
+    getMonthlyReport(monthlyreportdata: any): Observable<HttpResponse<any>> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            observe: 'response' as 'response'
+        };
+        return this.http.post<any>(this.monthlyreport, monthlyreportdata, httpOptions)
+            .pipe(
+
+            );
+    }
+
+    yearlyreport = 'http://45.55.129.192:5000/yearlyreport';
+    getYearlyReport(yearlyreportdata: any): Observable<HttpResponse<any>> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            observe: 'response' as 'response'
+        };
+        return this.http.post<any>(this.yearlyreport, yearlyreportdata, httpOptions)
+            .pipe(
+
+            );
+    }
 }
