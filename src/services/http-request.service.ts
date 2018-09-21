@@ -6,6 +6,10 @@ import { catchError } from 'rxjs/operators';
 import { Login } from '../../src/login/loginschema';
 import { Devices } from '../../src/app/dashboard/devicesschema'; 
 import { Userprofile } from '../app/user-profile/user-profile.component'
+import { MonthlyData } from '../app/monthlyreports/monthydataschema'
+import { YearlyData } from '../app/yearlyreports/yearlydataschema'
+import { RecentData } from '../app/table-list/table-listSchema'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +36,7 @@ export class HttpRequestService {
     }
    
 
-   devices = 'http://45.55.129.192:5000/api/record';
+    devices = 'http://45.55.129.192:5000/api/record';
     getdevices(): Observable<Devices[]> {
         
         return this.http.get<Devices[]>(this.devices, {
@@ -41,6 +45,37 @@ export class HttpRequestService {
 
             );
     }
+
+    recentdata ='http://45.55.129.192:5000/api/recent';
+    getrecentdata(): Observable<RecentData[]> {
+
+        return this.http.get<RecentData[]>(this.recentdata, {
+            withCredentials: true,
+        }).pipe(
+
+            );
+    }
+
+    monthlydata = 'http://45.55.129.192:5000/api/month';
+    getmonthlydata(): Observable<MonthlyData[]> {
+
+        return this.http.get<MonthlyData[]>(this.monthlydata, {
+            withCredentials: true,
+        }).pipe(
+
+            );
+    }
+
+    yearlydata = 'http://45.55.129.192:5000/api/year';
+    getyearlydata(): Observable<YearlyData[]> {
+        
+        return this.http.get<YearlyData[]>(this.yearlydata, {
+            withCredentials: true,
+        }).pipe(
+
+            );
+    }
+
 
     userprofile = 'http://45.55.129.192:5000/api/user/';
     getuserinfo(): Observable<Userprofile[]> {
@@ -123,51 +158,6 @@ export class HttpRequestService {
             observe: 'response' as 'response'
         };
         return this.http.post<any>(this.email, emaildata, httpOptions)
-            .pipe(
-
-            );
-    }
-
-    dailyreport = 'http://45.55.129.192:5000/dailyreport';
-    getDailyReport(dailyreportdata: any): Observable<HttpResponse<any>> {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-            observe: 'response' as 'response'
-        };
-        return this.http.post<any>(this.dailyreport, dailyreportdata, httpOptions)
-            .pipe(
-
-            );
-    }
-
-    monthlyreport = 'http://45.55.129.192:5000/monthlyreport';
-    getMonthlyReport(monthlyreportdata: any): Observable<HttpResponse<any>> {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-            observe: 'response' as 'response'
-        };
-        return this.http.post<any>(this.monthlyreport, monthlyreportdata, httpOptions)
-            .pipe(
-
-            );
-    }
-
-    yearlyreport = 'http://45.55.129.192:5000/yearlyreport';
-    getYearlyReport(yearlyreportdata: any): Observable<HttpResponse<any>> {
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-            observe: 'response' as 'response'
-        };
-        return this.http.post<any>(this.yearlyreport, yearlyreportdata, httpOptions)
             .pipe(
 
             );

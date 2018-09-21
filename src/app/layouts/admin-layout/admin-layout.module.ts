@@ -47,7 +47,7 @@ import { ReportsComponent } from '../../reports/reports.component';
 import { ReportnavbarComponent } from "../../components/reportnavbar/reportnavbar.component";
 import { ComponentsModule } from '../../components/components.module';
 import { MonthlyreportsComponent } from "../../monthlyreports/monthlyreports.component"
-import { YeralyreportsComponent } from "../../yeralyreports/yeralyreports.component"
+import { YearlyreportsComponent } from "../../yearlyreports/yearlyreports.component"
 import { DailyreportsComponent } from "../../dailyreports/dailyreports.component"
 
 const config = {
@@ -112,7 +112,7 @@ const config = {
         DisplayPasswordMessage,
         ReportsComponent,
         MonthlyreportsComponent,
-        YeralyreportsComponent,
+        YearlyreportsComponent,
         DailyreportsComponent
     ],
   providers: [

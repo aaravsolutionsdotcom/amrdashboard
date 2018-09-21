@@ -10,6 +10,10 @@ nav {
     text-transform: uppercase;
 }
 
+a, a:active, a:focus {
+    outline: 0;
+}
+
 #tabs {
     background: #007b5e;
     color: #eee;

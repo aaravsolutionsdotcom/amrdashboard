@@ -29,7 +29,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="column" style="padding-left: 50pt;">
-                                <button class="btn btn-success btn-lg" style="font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">Submit</button>
+                                <button class="btn btn-success btn-lg" (click)=showDaily() style="font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,95 @@
         <div class="col-md-6">
             <div class="card text-center">
                 <div class="card-body">
-
+                    <div *ngIf="bardaily?.length > 0" class="chart-area">
+                            <div *ngIf="display" style="margin-top:80px;">
+                                <div style="width:300px; margin:0 auto;">
+                                    <app-radar-spinner [animationDuration]="1000"
+                                                        [size]="100"
+                                                        [color]="'#ff1d5e'">
+                                    </app-radar-spinner>
+                                </div>
+                                <div style="width:250px; margin:0 auto;">
+                                    <span>Loading..</span>
+                                </div>
+                            </div>
+                            <div *xl>
+                                <ngx-charts-bar-vertical *ngIf="bardaily" [view]="barview"
+                                                            [scheme]="barcolorScheme"
+                                                            [results]="bardaily"
+                                                            [gradient]="bargradient"
+                                                            [xAxis]="barshowXAxis"
+                                                            [yAxis]="barshowYAxis"
+                                                            [legend]="barshowLegend"
+                                                            [showXAxisLabel]="barshowXAxisLabel"
+                                                            [showYAxisLabel]="barshowYAxisLabel"
+                                                            [xAxisLabel]="barxAxisLabel"
+                                                            [yAxisLabel]="baryAxisLabel"
+                                                            (select)="onSelect($event)">
+                                </ngx-charts-bar-vertical>
+                            </div>
+                            <div *lg>
+                                <ngx-charts-bar-vertical *ngIf="bardaily" [view]="barview"
+                                                            [scheme]="barcolorScheme"
+                                                            [results]="bardaily"
+                                                            [gradient]="bargradient"
+                                                            [xAxis]="barshowXAxis"
+                                                            [yAxis]="barshowYAxis"
+                                                            [legend]="barshowLegend"
+                                                            [showXAxisLabel]="barshowXAxisLabel"
+                                                            [showYAxisLabel]="barshowYAxisLabel"
+                                                            [xAxisLabel]="barxAxisLabel"
+                                                            [yAxisLabel]="baryAxisLabel"
+                                                            (select)="onSelect($event)">
+                                </ngx-charts-bar-vertical>
+                            </div>
+                            <div *md>
+                                <ngx-charts-bar-vertical *ngIf="bardaily" [view]="barview"
+                                                            [scheme]="barcolorScheme"
+                                                            [results]="bardaily"
+                                                            [gradient]="bargradient"
+                                                            [xAxis]="barshowXAxis"
+                                                            [yAxis]="barshowYAxis"
+                                                            [legend]="barshowLegend"
+                                                            [showXAxisLabel]="barshowXAxisLabel"
+                                                            [showYAxisLabel]="barshowYAxisLabel"
+                                                            [xAxisLabel]="barxAxisLabel"
+                                                            [yAxisLabel]="baryAxisLabel"
+                                                            (select)="onSelect($event)">
+                                </ngx-charts-bar-vertical>
+                            </div>
+                            <div *sm>
+                                <ngx-charts-bar-vertical *ngIf="bardaily" [view]="barviewsm"
+                                                            [scheme]="barcolorScheme"
+                                                            [results]="bardaily"
+                                                            [gradient]="bargradient"
+                                                            [xAxis]="barshowXAxis"
+                                                            [yAxis]="barshowYAxis"
+                                                            [legend]="barshowLegend"
+                                                            [showXAxisLabel]="barshowXAxisLabel"
+                                                            [showYAxisLabel]="barshowYAxisLabel"
+                                                            [xAxisLabel]="barxAxisLabel"
+                                                            [yAxisLabel]="baryAxisLabel"
+                                                            (select)="onSelect($event)">
+                                </ngx-charts-bar-vertical>
+                            </div>
+                            <div *xs>
+                                <ngx-charts-bar-vertical *ngIf="bardaily" [view]="barviewxs"
+                                                            [scheme]="barcolorScheme"
+                                                            [results]="bardaily"
+                                                            [gradient]="bargradient"
+                                                            [xAxis]="barshowXAxis"
+                                                            [yAxis]="barshowYAxis"
+                                                            [legend]="barshowLegend"
+                                                            [showXAxisLabel]="barshowXAxisLabel"
+                                                            [showYAxisLabel]="barshowYAxisLabel"
+                                                            [xAxisLabel]="barxAxisLabel"
+                                                            [yAxisLabel]="baryAxisLabel"
+                                                            (select)="onSelect($event)">
+                                </ngx-charts-bar-vertical>
+                            </div>
+                            <user-agent-info (info)="thisUserAgent($event)"></user-agent-info>
+                        </div>
                 </div>
             </div>
         </div>

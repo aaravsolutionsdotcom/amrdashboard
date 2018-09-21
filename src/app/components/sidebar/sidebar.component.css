@@ -10,3 +10,8 @@ img.two {
 .nav li.active > a {
     background-color: crimson;
 }
+
+
+a, a:active, a:focus {
+    outline: 0;
+ }
