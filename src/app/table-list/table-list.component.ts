@@ -66,34 +66,34 @@ export class TableListComponent implements OnInit {
         this.orientationInfoRx.connect();
         this.responsiveSizeInfoRx.connect();
         this.userAgentInfoRx.connect();
-        this.httpreq.getdevices().subscribe(devicesre => {
+        this.httpreq.getrecentdata().subscribe(devicesre => {
 
             console.log('device recent data', devicesre)
-            this.devices = devicesre;
+            // this.devices = devicesre;
+
+            this.bardummy = devicesre;
             //sorting the devices in decesnding order
-            this.devices.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());
+            //this.devices.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());
 
-            var meterid = 0;
-            for (let i = 0; i < this.devices.length; i++) {
-                var k = 0;
-                for (let j = 0; j < this.deviceslatest.length; j++) {
-                    if (this.devices[i].deviceInfo.deviceName === this.deviceslatest[j].deviceName) {
-                        k++;
-                    }
-                }
-                if (k === 0) {
-                    meterid++;
-                    this.deviceslatest.push({
-                        "deviceName": this.devices[i].deviceInfo.deviceName,
-                    });
+            // for (let i = 0; i < this.devices.length; i++) {
+            //     // var k = 0;
+            //     // for (let j = 0; j < this.deviceslatest.length; j++) {
+            //     //     if (this.devices[i].deviceInfo.deviceName === this.deviceslatest[j].deviceName) {
+            //     //         k++;
+            //     //     }
+            //     // }
+            //     // if (k === 0) {
+            //     //     this.deviceslatest.push({
+            //     //         "deviceName": this.devices[i].deviceInfo.deviceName,
+            //     //     });
 
-                    this.actualbardata.push({
-                        "name": this.devices[i].deviceInfo.deviceName,
-                        "value": Number(this.devices[i].utilityData.lastunits)
-                    })
-                }
-            }
-            this.bardummy = this.actualbardata;
+            //         this.actualbardata.push({
+            //             "name": this.devices[i].name,
+            //             "value": Number(this.devices[i].value)
+            //         })
+            //     // }
+            // }
+            // this.bardummy = this.actualbardata;
             this.display = false;
         },
         err => {

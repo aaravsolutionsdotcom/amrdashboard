@@ -10,7 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { LoginComponent } from '../../../login/login.component';
 import { ReportsComponent } from '../../reports/reports.component';
 import { MonthlyreportsComponent } from "../../monthlyreports/monthlyreports.component"
-import { YeralyreportsComponent } from "../../yeralyreports/yeralyreports.component"
+import { YearlyreportsComponent } from "../../yearlyreports/yearlyreports.component"
 import { DailyreportsComponent } from "../../dailyreports/dailyreports.component"
 export const AdminLayoutRoutes: Routes = [
     { path: 'devices',      component: DashboardComponent },
@@ -24,7 +24,7 @@ export const AdminLayoutRoutes: Routes = [
             { path: '', redirectTo: 'monthlyreport', component: MonthlyreportsComponent },
             { path: 'dailyreport', component: DailyreportsComponent },
             { path: 'monthlyreport', component: MonthlyreportsComponent },
-            { path: 'yearlyreport', component: YeralyreportsComponent }
+            { path: 'yearlyreport', component: YearlyreportsComponent }
         ]
     },
 ];
