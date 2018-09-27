@@ -16,6 +16,7 @@ import { Devices } from '../dashboard/devicesschema';
 })
 export class DailyreportsComponent implements OnInit {
   bardaily = [];
+  barDaily = [];
   barWhole: Devices[];
   bar = 0;
   display = false;
@@ -86,25 +87,33 @@ export class DailyreportsComponent implements OnInit {
   minDate = new Date(this.maxDate.getFullYear(), this.maxDate.getMonth(), 1);
 
   showDaily() {
-      var barArr = [];
-      console.log('from',new Date(this.fromdate.value));
-      console.log('to',new Date(this.todate.value));
-      console.log('check',this.barWhole[0].utilityData.lastUpdate);
+      var barArr = new Map<string,number>();
       const fromVal: Date = new Date(this.fromdate.value)
       const toVal: Date = new Date(this.todate.value);
       var arrLen = this.barWhole.length;
       for (var i=0;i<arrLen;i++) {
         const curVal: Date = new Date(this.barWhole[i].utilityData.lastUpdate);
         if( curVal >= fromVal && curVal <= toVal ) {
-              barArr.push({
-                            "name": this.barWhole[i].utilityData.lastUpdate,
-                            "value": Number(this.barWhole[i].utilityData.lastunits)
-                          });
+              barArr.set(this.barWhole[i].utilityData.lastUpdate,
+                          (barArr.get(this.barWhole[i].utilityData.lastUpdate) || 0) 
+                            + Number(this.barWhole[i].utilityData.lastunits)
+                        );
           }
       }
+      var bararr = [];
+      this.barDaily = Array.from(barArr);
+      // console.log(this.barDaily);
+      for(var j=0;j<this.barDaily.length;j++) {
+          bararr.push({
+            "name": this.barDaily[j][0],
+            "value": this.barDaily[j][1]
+          })
+      }
+
+      bararr.sort((a, b) => new Date(b.name).getTime() - new Date(a.name).getTime());
       //console.log('barArr', barArr);
-      this.bardaily = barArr;
-      console.log('check',this.bardaily);
+      this.bardaily = bararr;
+      // console.log('check',this.bardaily);
    }
   // ngOnInit() {
   //     var date = new Date();

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { MonthlyreportsComponent } from "../monthlyreports/monthlyreports.component"
-import { YeralyreportsComponent } from "../yeralyreports/yeralyreports.component"
+import { YearlyreportsComponent } from "../yearlyreports/yearlyreports.component"
 
 
 export const ReportLayoutRoutes: Routes = [
     { path: 'monthlyreport', component: MonthlyreportsComponent },
-    { path: 'yeralyreport', component: YeralyreportsComponent }
+    { path: 'yearlyreport', component: YearlyreportsComponent }
 ];
 
 @NgModule({
@@ -16,7 +16,7 @@ export const ReportLayoutRoutes: Routes = [
   ],
     declarations: [
         MonthlyreportsComponent,
-        YeralyreportsComponent,
+        YearlyreportsComponent,
     ]
 })
 export class ReportsModule { }
