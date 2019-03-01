@@ -1,0 +1,32 @@
+<div fxFlex="90" class="page-layout simple fullwidth page-content dialog-content globalConfirmBox modal_XXS_Size" fxLayout="column"
+    fusePerfectScrollbar>
+    <div class="h1">
+        <span class="page-title">{{messageService.globalDialogMessage}}</span>
+        <span class="meta-info">
+            <a href="javascript:void(0);" (click)="close()">
+                X
+            </a>
+        </span>
+    </div>
+
+    <div class="content p-24 card-ele" >
+        <div class="mat-card">
+            <div class="eleDiv">
+                <p class="confirmText">Are you sure you want to perform this action?</p>
+            </div>
+
+            <div class="mb-24 card-ele">
+                <div class="btn-section text-right">
+                    <button (click)="close()" mat-raised-button type="button" class="btn secondary_button">
+                        Close
+                    </button>
+                    <button (click)="save()" mat-raised-button type="button" class="btn primary_button">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

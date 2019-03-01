@@ -1,0 +1,116 @@
+<div id="fieldValueDialogDiv" fxFlex="50" class="page-layout simple fullwidth page-content dialog-content modal_S_Size"
+    fxLayout="column" fusePerfectScrollbar>
+    <div class="h1">
+        <span class="page-title">Download Device Data CSV</span>
+        <span class="meta-info" id="meta-info">
+            <a href="javascript:void(0);" (click)="CloseDownloadDialog()">
+                X
+            </a>
+        </span>
+    </div>
+
+    <form [formGroup]="deviceService.download_form">
+        <div class="">
+
+            <div class="mb-24 card-ele">
+                <div class="mat-card">
+                    <div class="p-16">
+
+                        <div class="eleDiv">
+                            <div class="readOnlyModeInfo">
+                                <div class="data-col">
+                                    <label style="margin-left: -39px;">Device Id : </label>
+                                    <span class="ro-value">{{deviceService.deviceId}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="eleDiv">
+                            <mat-form-field fxFlex="36">
+                                <input [max]="maxDate" readonly matInput [matDatepicker]="from" placeholder="From Date"
+                                    formControlName="fromDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                <mat-datepicker #from></mat-datepicker>
+                                <mat-error>Required Field</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="36">
+                                <input [max]="maxDate" readonly matInput [matDatepicker]="to" placeholder="To Date"
+                                    formControlName="maxDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                <mat-datepicker #to></mat-datepicker>
+                                <mat-error>Required Field</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Button Starts here -->
+                    <div class="mb-24 card-ele">
+
+                        <div class="btn-section mr-24 text-right pb-15">
+                            <button mat-raised-button type="button" (click)="checkFormValidity()" class="btn primary_button">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Button ends here -->
+
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<!-- Modal content-->
+
+
+<!-- <div class="modal-body">
+    <form [formGroup]="download_form">
+        <div class="row">
+            <div class="column" style="padding-left: 11pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+                <br />
+                DEVICEID
+            </div>
+            <div class="column" style="text-transform: uppercase;font-weight: 500;letter-spacing: 1px;">
+            </div>
+        </div>
+        <input type="text" id="devicename" formControlName="devicename" class="form-control" disabled>
+    </form>
+    <br />
+    <div class="row">
+        <div class="column" style="padding-left: 11pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+            <br />
+            FROMDATE
+        </div>
+        <div class="column" style="padding-left: 182pt;font-weight: 500;letter-spacing: 1px;text-transform: uppercase;">
+            <br />
+            TODATE
+        </div>
+    </div>
+    <mat-form-field>
+        <input matInput [max]="maxDate" [matDatepicker]="picker" [formControl]="fromdate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="padding-left: 80pt;">
+        <input [max]="maxDate" matInput [matDatepicker]="pickere" [formControl]="serializedDate">
+        <mat-datepicker-toggle matSuffix [for]="pickere"></mat-datepicker-toggle>
+        <mat-datepicker #pickere></mat-datepicker>
+    </mat-form-field>
+    <div *ngIf="error.isError" class="alert alert-danger">
+        {{ error.errorMessage }}
+    </div>
+    <br />
+    <br />
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="column">
+            <button type="button" (click)="download()" [disabled]="error.isError" class="btn btn-success btn-lg">Download</button>
+        </div>
+        <div class="column">
+            <button (click)="closeModal()" type="button" class="btn btn-danger btn-lg">Close</button>
+        </div>
+    </div>
+</div> -->
