@@ -1,0 +1,61 @@
+<div id="updateprofile" class="page-layout simple fullwidth page-content notH3" fxLayout="column" fusePerfectScrollbar>
+
+    <form [formGroup]="userProfileService.updateprofile">
+        <div class="content">
+            <div class="mb-24 dashboardInfo">
+                <div class="eleDiv searchResult">
+                    <div class="partnerName">
+                        <span class="partnerName">&nbsp;</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="h1">
+                <span class="page-title" fxFlex="50">Update Profile</span>
+            </div>
+
+
+            <div class="mb-24 card-ele">
+                <div class="mat-card mat-elevation-z4 p-24 mr-24">
+
+                    <div class="eleDiv">
+
+                        <mat-form-field fxFlex="18">
+                            <input readonly formControlName="username" matInput placeholder="User Name" maxlength="20" />
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="eleDiv">
+                        <mat-form-field fxFlex="18">
+                            <input readonly formControlName="entityname" matInput placeholder="Entity Name" maxlength="20" />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="eleDiv">
+                        <mat-form-field fxFlex="25">
+                            <input readonly formControlName="apikey" matInput placeholder="API Key" maxlength="30" />
+                        </mat-form-field>
+
+                    </div>
+
+                    <!-- Button Starts here -->
+                    <div class="mb-24 card-ele">
+
+                        <div class="btn-section mr-24 text-right pb-15">
+                            <button mat-raised-button type="button" (click)="updatePasword()" class="btn primary_button">
+                                Update
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- Button ends here -->
+
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+</div>

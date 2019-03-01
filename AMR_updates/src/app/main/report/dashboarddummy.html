@@ -1,0 +1,53 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h6 class="title">Devices</h6>
+                </div>
+                <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <input class="form-control" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="filter">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th (click)="sort('name')">
+                                                Name
+                                                <span class="glyphicon sort-icon" *ngIf="key =='name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th (click)="sort('genre')">
+                                                Genre
+                                                <span class="glyphicon sort-icon" *ngIf="key =='genre'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let game of games | orderBy: key : reverse | filter:filter | paginate: { itemsPerPage: 2, currentPage: p }; let i = index">
+                                            <td>{{i}}</td>
+                                            <td>{{game.name}}</td>
+                                            <td>{{game.genre}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h6 class="title">Deviceinfo</h6>
+                </div>
+                <div class="card-body">
+                    <form></form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div id="Report" class="page-layout simple fullwidth page-content" fxLayout="column" fusePerfectScrollbar>
+
+    <div class="content">
+        <div class="mb-24 dashboardInfo">
+            <div class="eleDiv searchResult">
+                <div class="partnerName">
+                    <span class="partnerName">&nbsp;</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="h1">
+            <span class="page-title">Reports</span>
+        </div>
+        <div class="mb-24 card-ele">
+            <div class="mat-card mat-elevation-z4 p-24 mr-24">
+
+                <div class="eleDiv">
+                    <mat-tab-group dynamicHeight (selectedTabChange)='tabChange($event);'>
+                        <mat-tab label="Daily Consumption">
+                            <div class="example-small-box mat-elevation-z4">
+                                <div class="p-24 summary">
+                                    <form [formGroup]="reportService.dailyReportForm">
+                                        <div class="eleDiv">
+                                            <mat-form-field fxFlex="20">
+                                                <input [max] = "defaultDate" readonly matInput [matDatepicker]="dailyStartDate" placeholder="Effective Start Date"
+                                                    formControlName="startDt" required>
+                                                <mat-datepicker-toggle matSuffix [for]="dailyStartDate"></mat-datepicker-toggle>
+                                                <mat-datepicker #dailyStartDate></mat-datepicker>
+                                                <mat-error>Required Field</mat-error>
+                                            </mat-form-field>
+
+                                            <mat-form-field fxFlex="20">
+                                                <input [max] = "defaultDate" readonly matInput [matDatepicker]="dailyEndDate" placeholder="Effective End Date"
+                                                    formControlName="endDt" required>
+                                                <mat-datepicker-toggle matSuffix [for]="dailyEndDate"></mat-datepicker-toggle>
+                                                <mat-datepicker #dailyEndDate></mat-datepicker>
+                                                <mat-error>Required Field</mat-error>
+                                            </mat-form-field>
+                                            <div class="btn-section mrT10 " fxFlex="10">
+                                                <button mat-raised-button class="btn viewInfoBtn xsBtn" (click)="getDaily()">Get
+                                                    Reports</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div [hidden]="(labels.length != 0 ? false : true)"  class="eleDiv tblOfExpand">
+                                        <table>
+                                            <tr>
+                                                <td style="width: 700px; height: 50%;"><canvas id="barChart"></canvas></td>
+                                                <td style="width: 700px; height: 50%;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Monthly Consumption">
+                            <div class="example-large-box mat-elevation-z4">
+                                <div class="p-24 Contact-Info">
+                                    <form [formGroup]="reportService.monthlyReportForm">
+                                        <div class="eleDiv">
+                                            <mat-form-field fxFlex="20">
+                                                <input [max] = "defaultDate" readonly matInput [matDatepicker]="monthlyStartDate" placeholder="Effective Start Date"
+                                                    formControlName="startDt" required>
+                                                <mat-datepicker-toggle matSuffix [for]="monthlyStartDate"></mat-datepicker-toggle>
+                                                <mat-datepicker #monthlyStartDate></mat-datepicker>
+                                                <mat-error>Required Field</mat-error>
+                                            </mat-form-field>
+
+                                            <mat-form-field fxFlex="20">
+                                                <input [max] = "defaultDate" readonly matInput [matDatepicker]="monthlyEndDate" placeholder="Effective End Date"
+                                                    formControlName="endDt" required>
+                                                <mat-datepicker-toggle matSuffix [for]="monthlyEndDate"></mat-datepicker-toggle>
+                                                <mat-datepicker #monthlyEndDate></mat-datepicker>
+                                                <mat-error>Required Field</mat-error>
+                                            </mat-form-field>
+                                            <div class="btn-section mrT10 " fxFlex="10">
+                                                <button mat-raised-button class="btn viewInfoBtn xsBtn" (click)="getMonthly()">Get
+                                                    Reports</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div [hidden]="(labels.length != 0 ? false : true)"  class="eleDiv tblOfExpand">
+                                        <table>
+                                            <tr>
+                                                <td style="width: 700px; height: 50%;"><canvas id="barChart"></canvas></td>
+                                                <td style="width: 700px; height: 50%;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Yearly Consumption">
+                            <div class="example-large-box">
+                                <div class="p-24 Devices">
+                                    <div class="eleDiv tblOfExpand">
+                                        <table>
+                                            <tr>
+                                                <td style="width: 600px; height: 50%;"><canvas id="barChartYear"></canvas></td>
+                                                <td style="width: 700px; height: 50%;"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

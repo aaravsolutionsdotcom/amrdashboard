@@ -1,0 +1,37 @@
+
+.page-content .card-ele .mat-card .h4.deviceTabs {
+    border-bottom: 1px solid #e7e7e7;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 10px !important;
+}
+
+.highlight {
+    background-color: #f3eaea!important;
+}
+
+.page-content .card-ele .mat-card .eleDiv .readOnlyModeInfo .data-col {
+    width: 51% !important;
+    padding-top: 6px !important;
+}
+.deviceInfoCol{
+    position: relative;
+}
+.deviceInfoCol .download_csv{
+    position: absolute;
+    right: 20px;
+    margin-top: -54px;
+    border: 1px solid #e7e7e7;
+    z-index: 99;
+    padding: 1px 2px 0px 0px;
+    border-radius: 5px;
+}
+.table-bghover:hover {
+    background: #f3eaea!important;
+}
+
+.page-content .card-ele .mat-card .formSubTitle {
+        margin-top: 0px !important;
+    padding-top: 0px !important;
+}
