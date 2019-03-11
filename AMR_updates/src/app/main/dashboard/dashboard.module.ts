@@ -3,25 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { DashboardComponent, HomeComponent } from './dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
     {
         path     : 'dashboard',
         component: DashboardComponent,
         runGuardsAndResolvers: 'always'
-    },
-    {
-        path     : 'home',
-        component: HomeComponent,
-        runGuardsAndResolvers: 'always'
     }
 ];
 
 @NgModule({
     declarations: [
-        DashboardComponent,
-        HomeComponent
+        DashboardComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -29,8 +23,7 @@ const routes: Routes = [
         FuseSharedModule
     ],
     exports     : [
-        DashboardComponent,
-        HomeComponent
+        DashboardComponent
     ]
 })
 

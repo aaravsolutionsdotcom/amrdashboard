@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     hmr       : false,
-    baseUrl:'http://67.205.185.159:5000/api/'
+    baseUrl:'http://68.183.83.48:5000/api/'
     
 };
 

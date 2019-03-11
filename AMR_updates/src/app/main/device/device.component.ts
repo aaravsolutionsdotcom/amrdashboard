@@ -83,7 +83,7 @@ export class DeviceComponent implements OnInit {
             this.selectedRowIndex = undefined;
             this.devices = devicesre;
             this.deviceService.devicesRef = devicesre;
-            this.uniqueArray = this.removeduplicates(this.devices);
+            this.uniqueArray = this.appService.removeduplicates(this.devices);
             this.uniqueArray = new MatTableDataSource(this.uniqueArray);
             this.uniqueArray.paginator = this.paginator;
             this.display = false;
@@ -95,28 +95,6 @@ export class DeviceComponent implements OnInit {
     }
 
     p: number = 1;
-
-    removeduplicates = function (origArr) {
-        var newArr = [],
-            origLen = origArr.length,
-            found, x, y;
-
-        for (x = 0; x < origLen; x++) {
-
-            found = undefined;
-            for (y = 0; y < newArr.length; y++) {
-                if (origArr[x].deviceInfo.deviceName === newArr[y].deviceInfo.deviceName) {
-                    console.log(origArr[x])
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                newArr.push(origArr[x]);
-            }
-        }
-        return newArr;
-    }
 
     getcurentunitsdate = function (devicename) {
         var newArr = [],
@@ -275,7 +253,8 @@ export class DeviceComponent implements OnInit {
         let dataList = <any>[];
         let k = 0;
         this.deviceinfographdata.forEach(element => {
-            this.labels.push(element.name);
+            let labelDate = element.name.split("T")[0];
+            this.labels.push(labelDate);
             dataList.push(element.value);
             this.backColor.push(this.domainColor[k]);
             if (k == 3) {

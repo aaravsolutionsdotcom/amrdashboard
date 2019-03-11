@@ -1,0 +1,36 @@
+.page-layout{
+    .moduleSection{
+        background: #e3e3e3;
+        margin: 20px;
+        border-radius: 5px;
+        .card-ele{
+            margin-bottom: 0px !important;
+            .sectionRow{
+                margin: 15px;
+                &:last-child{
+                    margin-right: 0px;
+                }
+                .mat-card{
+                    border-radius: 5px;
+                    padding: 10px;
+                    min-height: 250px;
+                    margin-right: 25px;
+                    &:last-child{
+                        margin-right: 15px;
+                    }
+                }
+                .mat-card1{
+                    min-height: 125px !important;
+                }
+            }
+        }
+    }
+    
+    .user-flex {
+        color: blue;
+    }
+
+    .label-color{
+        color: grey;
+    }
+}

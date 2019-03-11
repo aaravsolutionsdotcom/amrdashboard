@@ -1,5 +1,63 @@
-<div class="page-layout blank p-24 homepage" fusePerfectScrollbar>
+<div id="#SampleID" class="page-layout simple fullwidth page-content" fxLayout="column" fusePerfectScrollbar>
+    <div class="content">
+        <div class="moduleSection">
+            <div class="mb-24 card-ele">
+                <div class="sectionRow" fxFlex="100">
+                    <div class="mat-card mat-elevation-z4" fxFlex="50"> <canvas id="barChart"></canvas></div>
+                    <div class="mat-card mat-elevation-z4" fxFlex="50">
 
-    <img src="assets/images/avatars/dashboard.png">
+                        <div class="mb-24 card-ele">
+                            <div class="sectionRow">
+                                <div class="mat-card mat-card1 mat-elevation-z4" fxFlex="50">
+                                    <h2 class="user-flex">{{lastLogin}}</h2>
+                                    <div class="readOnlyModeInfo">
+                                        <div class="data-col">
+                                            <label class="label-color">Last Login</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mat-card mat-card1 mat-elevation-z4" fxFlex="50">
+                                        <h2 class="user-flex">{{username}}</h2>
+                                        <div class="readOnlyModeInfo">
+                                            <div class="data-col">
+                                                <label class="label-color">User Name</label>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-24 card-ele">
+                            <div class="sectionRow">
+                                <div class="mat-card mat-card1 mat-elevation-z4" fxFlex="50">
+                                        <h2 class="user-flex">89,025</h2>
+                                        <div class="readOnlyModeInfo">
+                                            <div class="data-col">
+                                                <label class="label-color">Followers</label>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="mat-card mat-card1 mat-elevation-z4" fxFlex="50">
+                                        <h2 class="user-flex">1569874563</h2>
+                                        <div class="readOnlyModeInfo">
+                                            <div class="data-col">
+                                                <label class="label-color">Last Reading</label>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-24 card-ele">
+                <div class="sectionRow" fxFlex="100">
+                    <div class="mat-card mat-elevation-z4" fxFlex="50"> <canvas id="pieChart"></canvas></div>
+                    <div class="mat-card mat-elevation-z4" fxFlex="50"> </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
