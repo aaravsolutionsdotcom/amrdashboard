@@ -67,16 +67,16 @@ export class ReportComponent implements OnInit {
 
         })
 
-        this.reportService.getdevices().subscribe(dailydata => {
-            console.log('dailyDateRe', dailydata);
-            this.dailyBarData = dailydata;
-            this.display = false;
-        },
-        error => {
-            if (error.error.error === 'You must log in!') {
-                this.router.navigate(['./login']);
-              }
-        });
+        // this.reportService.getdevices().subscribe(dailydata => {
+        //     console.log('dailyDateRe', dailydata);
+        //     this.dailyBarData = dailydata;
+        //     this.display = false;
+        // },
+        // error => {
+        //     if (error.error.error === 'You must log in!') {
+        //         this.router.navigate(['./login']);
+        //       }
+        // });
     }
 
     getDaily() {
@@ -89,85 +89,97 @@ export class ReportComponent implements OnInit {
             let date;
             const fromVal: Date = new Date(this.reportService.dailyReportForm.get('startDt').value)
             const toVal: Date = new Date(this.reportService.dailyReportForm.get('endDt').value);
-            var arrLen = this.dailyBarData.length;
-            this.dailyBarData.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());
-            let k = 0;
-            for (var i = 0; i < arrLen; i++) {
-                if (i == 0) {
-                    date = this.dailyBarData[i].utilityData.lastUpdate;
-                    totalKw += Number(this.dailyBarData[i].utilityData.lastunits);
-                } else if (date === this.dailyBarData[i].utilityData.lastUpdate) {
-                    totalKw += Number(this.dailyBarData[i].utilityData.lastunits);
-                } else {
-                    const curVal: Date = new Date(this.dailyBarData[i].utilityData.lastUpdate);
-                    if (curVal >= fromVal && curVal <= toVal) {
-                        this.labels.push(date);
-                        dataList.push(totalKw);
-                        this.backColors.push(this.domainColor[k]);
-                        if (k == 3) {
-                            k = 0;
-                        } else {
-                            k++;
-                        }
+            let req = {
+                "start": fromVal,
+                "end": toVal
+            }
+            this.reportService.getDailydata(req).subscribe(dailydata => {
+                console.log('dailyDateRe', dailydata);
+                this.dailyBarData = dailydata.body;
+                this.display = false;
+                let arrLen = this.dailyBarData.length;
+                this.dailyBarData.sort((a, b) => new Date(b.utilityData.lastUpdate).getTime() - new Date(a.utilityData.lastUpdate).getTime());
+                let k = 0;
+                for (var i = 0; i < arrLen; i++) {
+                    if (i == 0) {
                         date = this.dailyBarData[i].utilityData.lastUpdate;
-                        totalKw = Number(this.dailyBarData[i].utilityData.lastunits);
+                        totalKw += Number(this.dailyBarData[i].utilityData.lastunits);
+                    } else if (date === this.dailyBarData[i].utilityData.lastUpdate) {
+                        totalKw += Number(this.dailyBarData[i].utilityData.lastunits);
+                    } else {
+                            let labelDate = date.split("T")[0];
+                            this.labels.push(labelDate);
+                            dataList.push(totalKw);
+                            this.backColors.push(this.domainColor[k]);
+                            if (k == 3) {
+                                k = 0;
+                            } else {
+                                k++;
+                            }
+                            date = this.dailyBarData[i].utilityData.lastUpdate;
+                            totalKw = Number(this.dailyBarData[i].utilityData.lastunits);
                     }
+
                 }
 
-            }
-
-            if (dataList.length > 0) {
-                let chartData = {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Reading Data",
-                            backgroundColor: this.backColors,
-                            borderColor: "rgba(255,99,132,1)",
-                            borderWidth: 0,
-                            hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                            hoverBorderColor: "rgba(255,99,132,1)",
-                            data: dataList,
-                        }
-                    ]
-                };
-
-                let chartOptions = {
-                    responsive: true,
-                    legend: {
-                        display: true,
-                        position: 'top',
-                        labels: {
-                            boxWidth: 40
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            gridLines: {
-                                display: false
+                if (dataList.length > 0) {
+                    let chartData = {
+                        labels: this.labels,
+                        datasets: [
+                            {
+                                label: "Reading Data",
+                                backgroundColor: this.backColors,
+                                borderColor: "rgba(255,99,132,1)",
+                                borderWidth: 0,
+                                hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                                hoverBorderColor: "rgba(255,99,132,1)",
+                                data: dataList,
                             }
-                        }],
-                        yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Kw',
-                                fontSize: 15,
-                                fontColor: '#666'
+                        ]
+                    };
+
+                    let chartOptions = {
+                        responsive: true,
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                boxWidth: 40
                             }
-                        }]
+                        },
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Kw',
+                                    fontSize: 15,
+                                    fontColor: '#666'
+                                }
+                            }]
+                        }
+                    };
+
+                    this.barChart.destroy();
+                    this.barChart = new Chart('barChart', {
+                        type: 'bar',
+                        data: chartData,
+                        options: chartOptions
+                    });
+                } else {
+                    this.barChart.destroy();
+                    this.messageService.showErrorMessage('Data not found, please select different dates.');
+                }
+            },
+                error => {
+                    if (error.error.error === 'You must log in!') {
+                        this.router.navigate(['./login']);
                     }
-                };
-
-                this.barChart.destroy();
-                this.barChart = new Chart('barChart', {
-                    type: 'bar',
-                    data: chartData,
-                    options: chartOptions
                 });
-            } else {
-                this.barChart.destroy();
-                this.messageService.showErrorMessage('Data not found, please select different dates.');
-            }
         }
     }
 
@@ -181,85 +193,99 @@ export class ReportComponent implements OnInit {
             let date;
             const fromVal: Date = new Date(this.reportService.monthlyReportForm.get('startDt').value)
             const toVal: Date = new Date(this.reportService.monthlyReportForm.get('endDt').value);
-            var arrLen = this.monthlyBarData.length;
-            this.monthlyBarData.sort((a, b) => new Date(b.name).getTime() - new Date(a.name).getTime());
-            let k = 0;
-            for (var i = 0; i < arrLen; i++) {
-                if (i == 0) {
-                    date = this.monthlyBarData[i].name;
-                    totalKw += Number(this.monthlyBarData[i].value);
-                } else if (date === this.monthlyBarData[i].name) {
-                    totalKw += Number(this.monthlyBarData[i].value);
-                } else {
-                    const curVal: Date = new Date(this.monthlyBarData[i].dateTo)
-                    if (curVal >= fromVal && curVal <= toVal) {
-                        this.labels.push(date);
-                        dataList.push(totalKw);
-                        this.backColors.push(this.domainColor[k]);
-                        if (k == 3) {
-                            k = 0;
-                        } else {
-                            k++;
-                        }
+            let req = {
+                "start": fromVal,
+                "end": toVal
+            }
+
+            this.reportService.getmonthlydata(req).subscribe(monthlydata => {
+                console.log('monthlyDateRe', monthlydata);
+                this.monthlyBarData = monthlydata.body;
+                this.display = false;
+                let arrLen = this.monthlyBarData.length;
+                this.monthlyBarData.sort((a, b) => new Date(b.name).getTime() - new Date(a.name).getTime());
+                let k = 0;
+                for (var i = 0; i < arrLen; i++) {
+                    if (i == 0) {
                         date = this.monthlyBarData[i].name;
-                        totalKw = Number(this.monthlyBarData[i].value);
+                        totalKw += Number(this.monthlyBarData[i].value);
+                    } else if (date === this.monthlyBarData[i].name) {
+                        totalKw += Number(this.monthlyBarData[i].value);
+                    } else {
+                            let labelDate = date.split("T")[0];
+                            this.labels.push(labelDate);
+                            dataList.push(totalKw);
+                            this.backColors.push(this.domainColor[k]);
+                            if (k == 3) {
+                                k = 0;
+                            } else {
+                                k++;
+                            }
+                            date = this.monthlyBarData[i].name;
+                            totalKw = Number(this.monthlyBarData[i].value);  
                     }
+
                 }
-
-            }
-            if (dataList.length > 0) {
-                let chartData = {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Reading Data",
-                            backgroundColor: this.backColors,
-                            borderColor: "rgba(255,99,132,1)",
-                            borderWidth: 0,
-                            hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                            hoverBorderColor: "rgba(255,99,132,1)",
-                            data: dataList,
-                        }
-                    ]
-                };
-
-                let chartOptions = {
-                    responsive: true,
-                    legend: {
-                        display: true,
-                        position: 'top',
-                        labels: {
-                            boxWidth: 40
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            barPercentage: 0.5,
-                            gridLines: {
-                                display: false
+                if (dataList.length > 0) {
+                    let chartData = {
+                        labels: this.labels,
+                        datasets: [
+                            {
+                                label: "Reading Data",
+                                backgroundColor: this.backColors,
+                                borderColor: "rgba(255,99,132,1)",
+                                borderWidth: 0,
+                                hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                                hoverBorderColor: "rgba(255,99,132,1)",
+                                data: dataList,
                             }
-                        }],
-                        yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Kw',
-                                fontSize: 15,
-                                fontColor: '#666'
+                        ]
+                    };
+
+                    let chartOptions = {
+                        responsive: true,
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                boxWidth: 40
                             }
-                        }]
+                        },
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.5,
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Kw',
+                                    fontSize: 15,
+                                    fontColor: '#666'
+                                }
+                            }]
+                        }
+                    };
+
+                    this.barChart.destroy();
+                    this.barChart = new Chart('barChart', {
+                        type: 'bar',
+                        data: chartData,
+                        options: chartOptions
+                    });
+                } else {
+                    this.barChart.destroy();
+                    this.messageService.showErrorMessage('Data not found, please select different dates.');
+                }
+            },
+                error => {
+                    this.messageService.showCommonErrorMessage();
+                    if (error.error.error === 'You must log in!') {
+                        this.router.navigate(['./login']);
                     }
-                };
-
-                this.barChart.destroy();
-                this.barChart = new Chart('barChart', {
-                    type: 'bar',
-                    data: chartData,
-                    options: chartOptions
                 });
-            } else {
-                this.barChart.destroy();
-                this.messageService.showErrorMessage('Data not found, please select different dates.');
-            }
         }
     }
 
@@ -356,7 +382,7 @@ export class ReportComponent implements OnInit {
                     console.error('Something went wrong, Please try again.');
                     if (error.error.error === 'You must log in!') {
                         this.router.navigate(['./login']);
-                      }
+                    }
                 });
     }
 
@@ -367,37 +393,15 @@ export class ReportComponent implements OnInit {
         if (event.index == 0) {
             this.barChart.destroy();
             this.reportService.dailyReportForm.patchValue({
-                'startDate' : new Date(),
-                'endDate' : new Date()
+                'startDate': new Date(),
+                'endDate': new Date()
             })
-            this.reportService.getdevices().subscribe(dailydata => {
-                console.log('dailyDateRe', dailydata);
-                this.dailyBarData = dailydata;
-                this.display = false;
-            },
-                error => {
-                    this.messageService.showCommonErrorMessage();
-                    if (error.error.error === 'You must log in!') {
-                        this.router.navigate(['./login']);
-                      }
-                });
         } else if (event.index == 1) {
             this.barChart.destroy();
             this.reportService.monthlyReportForm.patchValue({
-                'startDate' : new Date(),
-                'endDate' : new Date()
+                'startDate': new Date(),
+                'endDate': new Date()
             })
-            this.reportService.getmonthlydata().subscribe(dailydata => {
-                console.log('monthlyDateRe', dailydata);
-                this.monthlyBarData = dailydata;
-                this.display = false;
-            },
-                error => {
-                    this.messageService.showCommonErrorMessage();
-                    if (error.error.error === 'You must log in!') {
-                        this.router.navigate(['./login']);
-                      }
-                });
         } else if (event.index == 2) {
             this.appService.loading = true;
             this.barChartYear.destroy();

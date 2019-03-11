@@ -7,6 +7,13 @@ export class Navigation{
 			type: 'group',
 			children: [
 				{
+					id: 'dashboard',
+					title: 'Dashboard',
+					type: 'item',
+					icon: 'dashboard',
+					url: '/dashboard'
+				},
+				{
 					id: 'recentData',
 					title: 'Recent Data',
 					type: 'item',

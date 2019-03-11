@@ -35,9 +35,18 @@ export class ReportService {
 
   }
 
-  getmonthlydata(): any {
+  getDailydata(req: any): any {
 
-    return this.http.get<any>(this.baseUrl + 'month', { withCredentials: true })
+    return this.http.post<any>(this.baseUrl + 'recordByDate', req, this.httpOptions)
+      .pipe(map(data => {
+        return data;
+      }));
+
+  }
+
+  getmonthlydata(req:any): any {
+
+    return this.http.post<any>(this.baseUrl + 'month', req, this.httpOptions)
       .pipe(map(data => {
         return data;
       }));

@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
                         this.appService.loading = false;
                         if (data.body.message && data.body.message === 'SignIn success') {
                             console.log('Valid login')
-                            this.route.navigate(['./home']);
+                            this.route.navigate(['./dashboard']);
                         }
                     },
                     error => {
