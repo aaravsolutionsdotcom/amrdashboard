@@ -78,12 +78,17 @@ export class DashboardComponent implements OnInit {
                             }
                         });
                         dataList.push(totalDevices);
-                        dataList.push(activeDevices);
-                        dataList.push(inActiveDevices);
+                       
                         this.labelsPie = [];
                         this.labelsPie.push('Total');
-                        this.labelsPie.push('Active');
-                        this.labelsPie.push('Inactive');
+                        if(activeDevices > 0){
+                            this.labelsPie.push('Active');
+                            dataList.push(activeDevices);
+                        }
+                        if(inActiveDevices > 0){
+                            this.labelsPie.push('Inactive');
+                            dataList.push(inActiveDevices);
+                        }
 
                         let chartData = {
                             labels: this.labelsPie,
